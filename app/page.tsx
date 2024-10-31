@@ -1,3 +1,4 @@
+import SignupForm from "@/components/SignupForm";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,10 +16,10 @@ export default function Home() {
           />
           <div className="text-3xl font-bold ml-2 mt-1">Marketeer</div>
         </div>
-        <div>
-          <h1>Welcome to Marketeer</h1>
+        <div className="border rounded-xl p-6">
+          <div className="text-3xl mb-6">Signup</div>
           <div>
-            Insert form
+            <SignupForm />
           </div>
         </div>
         <div className="flex justify-between">
