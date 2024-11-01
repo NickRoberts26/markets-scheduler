@@ -4,12 +4,11 @@ import Link from 'next/link';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 
 interface FormData {
-    name: string;
     email: string;
-    phone: number;
+    password: string;
 }
 
-const SignupForm = () => {
+const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -18,21 +17,10 @@ const SignupForm = () => {
 
     return (
         <div className="border-2 border-black rounded-xl p-6 mx-20">
-            <div className="text-3xl mb-6">Signup</div>
+            <div className="text-3xl mb-6">Login</div>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div className='flex flex-col'>
-                        <label>Full name</label>
-                        <input 
-                            {...register('name', { required: 'Name is required' })}
-                            placeholder='Full name'
-                            className='border-2 border-black rounded-lg p-2'
-                        />
-                        {errors.name && <p>{errors.name.message}</p>}
-                    </div>
-        
-                    <div className='flex flex-col'>
-                        <label>Email</label>
                         <input
                             type="email"
                             {...register('email', {
@@ -47,12 +35,24 @@ const SignupForm = () => {
                         />
                         {errors.email && <p>{errors.email.message}</p>}
                     </div>
+
+                    <div className='flex flex-col'>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder='Password'
+                            {...register("password", { required: "Password is required" })}
+                            className='border-2 border-black rounded-lg p-2'
+                        />
+                        {errors.password && <p>{errors.password.message}</p>}
+                    </div>
+            
                     <button type="submit" className='form-button'>Submit</button>
                 </form>
             </div>
-            <p className="mt-10">Already registerd? Login <Link href="/login" className="text-green-500">here</Link></p>
+            <p className="mt-10">Not registerd? Sign up <Link href="/signup" className="text-green-500">here</Link></p>
         </div>
     );
 }
 
-export default SignupForm
+export default LoginForm

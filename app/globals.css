@@ -5,3 +5,7 @@
 .side-img {
   @apply hidden h-full object-cover md:block;
 }
+
+.form-button {
+  @apply w-full bg-green-400 border-2 border-black font-bold rounded-xl px-2 py-1 transition-all hover:text-white
+}
