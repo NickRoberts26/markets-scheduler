@@ -6,6 +6,14 @@
   @apply hidden h-full object-cover md:block;
 }
 
+.banner-img {
+  @apply w-full object-cover object-center md:block;
+}
+
 .form-button {
   @apply w-full bg-green-400 border-2 border-black font-bold rounded-xl px-2 py-1 transition-all hover:text-white
+}
+
+.action-button {
+  @apply w-[50%] bg-green-500 border-4 border-black rounded-full py-4 text-xl font-semibold text-center transition-all hover:text-white
 }
