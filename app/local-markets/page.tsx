@@ -1,31 +1,12 @@
 import React from 'react'
 import Image from "next/image";
 import Link from 'next/link';
+import Sidebar from '@/components/Sidebar';
 
 const LocalMarkets = () => {
   return (
     <div className='flex h-screen max-h-screen'>
-      <div className='w-[12%] border-r-2 px-2 pt-8 flex flex-col items-center'>
-        <Link href="/" className='mb-6'>
-            <Image
-                src="/assets/logo.png"
-                height={1000}
-                width={1000}
-                alt="logo"
-                className="h-10 w-fit"
-            />
-        </Link>
-        <Link href="/login" className='flex flex-col items-center'>
-            <Image
-                src="/assets/logout.png"
-                height={1000}
-                width={1000}
-                alt="logo"
-                className="h-9 w-fit"
-            />
-            <p className='text-[12px]'>Logout</p>
-        </Link>
-      </div>
+        <Sidebar />
       <div className='px-10 py-8'>
         <h1 className='text-5xl font-bold mb-8'>Current Markets</h1>
         <div className='grid grid-cols-3 gap-x-5'>

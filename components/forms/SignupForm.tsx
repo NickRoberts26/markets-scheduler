@@ -26,7 +26,7 @@ const SignupForm = () => {
                         <input 
                             {...register('name', { required: 'Name is required' })}
                             placeholder='Full name'
-                            className='border-2 border-black rounded-lg p-2'
+                            className='form-field'
                         />
                         {errors.name && <p>{errors.name.message}</p>}
                     </div>
@@ -43,7 +43,7 @@ const SignupForm = () => {
                                 },
                             })}
                             placeholder='Email'
-                            className='border-2 border-black rounded-lg p-2'
+                            className='form-field'
                         />
                         {errors.email && <p>{errors.email.message}</p>}
                     </div>

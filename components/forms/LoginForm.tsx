@@ -31,7 +31,7 @@ const LoginForm = () => {
                                 },
                             })}
                             placeholder='Email'
-                            className='border-2 border-black rounded-lg p-2'
+                            className='form-field'
                         />
                         {errors.email && <p>{errors.email.message}</p>}
                     </div>
@@ -42,7 +42,7 @@ const LoginForm = () => {
                             id="password"
                             placeholder='Password'
                             {...register("password", { required: "Password is required" })}
-                            className='border-2 border-black rounded-lg p-2'
+                            className='form-field'
                         />
                         {errors.password && <p>{errors.password.message}</p>}
                     </div>
