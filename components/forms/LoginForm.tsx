@@ -1,7 +1,12 @@
 "use client"
 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "@/lib/firebase";
 import Link from 'next/link';
+import { useState } from 'react';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 interface FormData {
     email: string;
@@ -10,9 +15,20 @@ interface FormData {
 
 const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const router = useRouter();
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log(data);
+    const [loading, setLoading] = useState(false);
+
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+        setLoading(true);
+        try {
+            await signInWithEmailAndPassword(auth, data.email, data.password);
+            router.push('/');
+        } catch (error) {
+            console.log(error);
+        } finally {
+          setLoading(false);
+        }
     };
 
     return (
@@ -47,7 +63,7 @@ const LoginForm = () => {
                         {errors.password && <p>{errors.password.message}</p>}
                     </div>
             
-                    <button type="submit" className='form-button'>Submit</button>
+                    <button type="submit" className='form-button'>{loading ? <ClipLoader size={15} color={"#000"} /> : 'Login'}</button>
                 </form>
             </div>
             <p className="mt-10">Not registerd? Sign up <Link href="/signup" className="text-green-500">here</Link></p>

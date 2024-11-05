@@ -5,12 +5,13 @@ import Link from 'next/link';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import ClipLoader from "react-spinners/ClipLoader";
 
 interface FormData {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     phone: string;
@@ -31,11 +32,17 @@ const SignupForm: React.FC = () => {
 
             await addDoc(collection(db, "users"), {
                 uid: user.uid, 
-                fullName: data.name,
+                firstName: data.firstName,
+                lastName: data.lastName,
                 email: data.email,
                 phone: data.phone,
                 createdAt: new Date(),
             });
+
+            await updateProfile(user, {
+                displayName: data.firstName,
+            });
+
             router.push('/login');
           } catch (error) {
             console.error("Error registering user: ", error);
@@ -50,14 +57,26 @@ const SignupForm: React.FC = () => {
             <div className="text-3xl mb-6">Signup</div>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    <div className='flex flex-col'>
-                        <label>Full name</label>
-                        <input 
-                            {...register('name', { required: 'Name is required' })}
-                            placeholder='Full name'
-                            className='form-field'
-                        />
-                        {errors.name && <p>{errors.name.message}</p>}
+                    <div className="flex justify-between">
+                        <div className='flex flex-col w-[48%]'>
+                            <label>First name</label>
+                            <input 
+                                {...register('firstName', { required: 'First Name is required' })}
+                                placeholder='First Name'
+                                className='form-field'
+                            />
+                            {errors.firstName && <p>{errors.firstName.message}</p>}
+                        </div>
+
+                        <div className='flex flex-col w-[48%]'>
+                            <label>Last name</label>
+                            <input 
+                                {...register('lastName', { required: 'Last Name is required' })}
+                                placeholder='Last name'
+                                className='form-field'
+                            />
+                            {errors.lastName && <p>{errors.lastName.message}</p>}
+                        </div>
                     </div>
         
                     <div className='flex flex-col'>

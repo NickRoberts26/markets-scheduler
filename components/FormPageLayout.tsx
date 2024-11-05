@@ -1,3 +1,6 @@
+'use client'
+
+import useAuth from "@/auth/useAuth";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -7,18 +10,27 @@ interface FormPageLayoutProps {
 }
 
 const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
+    const { user } = useAuth();
+    
     return (
         <div className="flex h-screen max-h-screen">
             <div className="flex flex-col justify-between w-[50%] px-10 py-10">
-                <div className="flex items-center">
-                    <Image
-                    src="/assets/logo.png"
-                    height={1000}
-                    width={1000}
-                    alt="logo"
-                    className="h-10 w-fit"
-                    />
-                    <div className="text-3xl font-bold ml-2 mt-1">Marketeer</div>
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center">
+                        <Image
+                        src="/assets/logo.png"
+                        height={1000}
+                        width={1000} 
+                        alt="logo"
+                        className="h-10 w-fit"
+                        />
+                        <div className="text-3xl font-bold ml-2 mt-1">Marketeer</div>
+                    </div>
+                    { user ? (
+                        <Link href="">Welcome, { user.displayName }</Link>
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 {children}
                 <div className="flex justify-between">
