@@ -14,11 +14,13 @@ const Profile: React.FC = () => {
   
     return (
       <div>
-        <h1>Profile</h1>
-        <p><strong>First Name:</strong> {user.firstName}</p>
-        <p><strong>Last Name:</strong> {user.lastName}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Phone:</strong> {user.phone}</p>
+        <h1 className='text-5xl font-bold mb-8'>Your Profile</h1>
+        <div className='border-2 border-black rounded-xl'>
+          <p><strong>First Name:</strong> {user.firstName}</p>
+          <p><strong>Last Name:</strong> {user.lastName}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Phone:</strong> {user.phone}</p>
+        </div>
       </div>
     );
 };
