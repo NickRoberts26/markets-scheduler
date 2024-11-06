@@ -1,8 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import Image from "next/image";
 import React from 'react'
 import { auth } from '@/lib/firebase';
-import { useRouter } from 'next/navigation';
 
 async function handleLogout() {
     try {
@@ -13,7 +14,6 @@ async function handleLogout() {
 }
 
 const Sidebar = () => {
-    const router = useRouter();
     return (
         <div className='w-[80px] border-r-2 px-2 pt-8 flex flex-col items-center'>
             <Link href="/" className='mb-6'>

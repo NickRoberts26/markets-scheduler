@@ -44,12 +44,12 @@ const SignupForm: React.FC = () => {
             });
 
             router.push('/login');
-          } catch (error) {
+        } catch (error) {
             console.error("Error registering user: ", error);
             alert("Failed to register user. Please try again.");
-          } finally {
+        } finally {
             setLoading(false);
-          }
+        }
     };
 
     return (

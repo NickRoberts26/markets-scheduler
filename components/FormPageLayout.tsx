@@ -27,7 +27,7 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
                         <div className="text-3xl font-bold ml-2 mt-1">Marketeer</div>
                     </div>
                     { user ? (
-                        <Link href="">Welcome, { user.displayName }</Link>
+                        <p>Welcome, <Link href="" className="font-bold">{ user.displayName }</Link></p>
                     ) : (
                         <></>
                     )}

@@ -1,33 +1,42 @@
 "use client"
 
+import useAuth from '@/auth/useAuth';
+import { db } from '@/lib/firebase';
+import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 
 interface FormData {
     marketName: string;
     productType: string;
-    logo?: FileList;
     bio?: string;
 }
 
-const MarketRegistrationForm = () => {
+const MarketRegistrationForm: React.FC = () => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log("Submitted data:", data);
-    };
+    const { user } = useAuth();
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-          setImagePreview(URL.createObjectURL(file));
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+        try {
+
+            await addDoc(collection(db, "markets"), {
+                ownerid: user?.uid, 
+                marketName: data.marketName,
+                productType: data.productType,
+                bio: data?.bio,
+                createdAt: new Date(),
+            });
+        } catch (error) {
+            console.error("Error registering market: ", error);
+            alert("Failed to register market. Please try again.");
         }
     };
 
     return (
-        <div className='flex-1 px-16 py-10'>
+        <div>
             <h1 className='text-5xl font-bold mb-8'>Market Registration</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-[60%]">
                 <div className='flex flex-col'>
@@ -71,27 +80,6 @@ const MarketRegistrationForm = () => {
                     />
                     {errors.bio && <p>{errors.bio.message}</p>}
                 </div>
-
-                <div className='flex flex-col'>
-                    <label className='mb-2'>Upload Logo</label>
-                    <input
-                        id="logo"
-                        type="file"
-                        accept="image/*"
-                        {...register('logo', {
-                            validate: {
-                            acceptedFormats: (files) =>
-                                files && files[0].type.startsWith("image/") || "Only image files are allowed",
-                            fileSize: (files) =>
-                                files && files[0].size < 5 * 1024 * 1024 || "Image size should be less than 5MB",
-                            },
-                        })}
-                        onChange={handleImageChange}
-                    />
-                    {errors.logo && <p>{errors.logo.message}</p>}
-                </div>
-
-                {imagePreview && <img src={imagePreview} alt="Image Preview" width={200} />}
         
                 <button type="submit" className='form-button'>Submit</button>
             </form>
