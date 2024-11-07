@@ -1,4 +1,4 @@
-import FormPageLayout from "@/components/FormPageLayout";
+import FormPageLayout from "@/components/layouts/FormPageLayout";
 import SignupForm from "@/components/forms/SignupForm";
 
 const Signup = () => (

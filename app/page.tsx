@@ -1,6 +1,6 @@
 "use client"
 
-import FormPageLayout from "@/components/FormPageLayout";
+import FormPageLayout from "@/components/layouts/FormPageLayout";
 import Image from "next/image";
 import Link from "next/link";
 

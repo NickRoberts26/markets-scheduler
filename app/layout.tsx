@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import { Nunito } from 'next/font/google';
+import AuthGuard from "@/components/layouts/AuthGuard";
 
 // Define the font with desired styles
 const nunito = Nunito({
@@ -22,10 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${nunito.className} antialiased`}
-      >
-        {children}
+      <body className={`${nunito.className} antialiased`}>
+        <AuthGuard>
+          {children}
+        </AuthGuard>
       </body>
     </html>
   );

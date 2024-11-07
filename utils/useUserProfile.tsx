@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { auth, db } from '@/lib/firebase'; // Adjust the import based on your file structure
+import { auth, db } from '@/lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -8,6 +8,7 @@ interface User {
   lastName: string;
   email: string;
   phone: string;
+  uid: string;
 }
 
 export const useUserProfile = () => {
@@ -17,9 +18,6 @@ export const useUserProfile = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
       if (authUser) {
-        console.log("User is logged in:", authUser.uid); // Logging for debugging
-        
-        // Create a query to find a document in the 'users' collection where the 'uid' field matches
         const userQuery = query(collection(db, 'users'), where('uid', '==', authUser.uid));
         
         try {
@@ -27,7 +25,6 @@ export const useUserProfile = () => {
           
           if (!querySnapshot.empty) {
             const userDoc = querySnapshot.docs[0]; // Get the first document from the query
-            console.log("User data found:", userDoc.data());
             setUser(userDoc.data() as User);
           } else {
             console.log("No user data found in Firestore with the matching uid.");
