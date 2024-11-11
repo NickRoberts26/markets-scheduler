@@ -50,9 +50,8 @@ const Profile: React.FC = () => {
     }
   
     return (
-      <div className='flex justify-between'>
-        <div className='w-[48%]'>
-          <h1 className='text-5xl font-bold mb-8'>Your Profile</h1>
+      <div className='flex justify-between w-[50%]'>
+        <div className='w-[95%]'>
           <div className='border-2 border-black rounded-xl p-4'>
             <div className='mb-8'>
               <h2 className='text-3xl mb-4 underline'>Personal Details</h2>
