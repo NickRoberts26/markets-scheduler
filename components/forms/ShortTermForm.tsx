@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import useAuth from "@/auth/useAuth";
 import {v4 as uuidv4} from 'uuid';
+import Image from 'next/image';
+import Link from "next/link";
 
 interface FormData {
     marketplace: string;
@@ -88,7 +90,21 @@ const ShortTermForm = () => {
     return (
         <div className="w-full">
             {booked ? (
-                <p>Booked!</p>
+                <div className="flex flex-col items-center justify-center">
+                    <Image
+                        src='/assets/very-nice.gif'
+                        alt="markets"
+                        width={1000}
+                        height={1000}
+                        className="w-40 mb-6"
+                    />
+                    <h2 className="text-4xl mb-2">Booking request sent!</h2>
+                    <p className="text-lg">You will receive confirmation from Market organisers soon.</p>
+                    <div className="flex">
+                        <Link href="/your-profile" className='basic-button mr-2 mt-6'>View in Profile</Link>
+                        <Link href="/" className='basic-button ml-2 mt-6'>Back to home</Link>
+                    </div>
+                </div>
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
