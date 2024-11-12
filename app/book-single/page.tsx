@@ -5,7 +5,7 @@ import Image from 'next/image';
 const BookSingle = () => {
     return (
         <div className='flex h-screen max-h-screen'>
-            <div className='w-[70%] px-16 py-10'>
+            <div className='flex justify-center items-center w-[70%] px-16 py-10'>
                 <ShortTermForm />
             </div>
             <Image
