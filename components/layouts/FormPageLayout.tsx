@@ -1,6 +1,7 @@
 'use client'
 
 import useAuth from "@/auth/useAuth";
+import { handleLogout } from "@/utils/handleLogout";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -15,8 +16,8 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
     return (
         <div className="flex h-screen max-h-screen">
             <div className="flex flex-col justify-between w-[50%] px-10 py-10">
-                <div className="flex justify-between items-center">
-                    <div className="flex items-center">
+                <div className="flex justify-between items-start">
+                    <Link href="/" className="flex items-center">
                         <Image
                         src="/assets/logo.png"
                         height={1000}
@@ -25,17 +26,23 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
                         className="h-10 w-fit"
                         />
                         <div className="text-3xl font-bold ml-2 mt-1">Marketeer</div>
-                    </div>
+                    </Link>
                     { user ? (
-                        <p>Welcome, <Link href="" className="font-bold">{ user.displayName }</Link></p>
+                        <div className="flex flex-col items-end">
+                            <p>Welcome, <Link href="" className="font-bold">{ user.displayName }</Link></p>
+                            <button onClick={handleLogout} className='w-fit text-sm'>Logout</button>
+                        </div>
                     ) : (
                         <></>
                     )}
                 </div>
                 {children}
-                <div className="flex justify-between">
+                <div className="flex justify-between items-end">
                     <p className="text-sm">© 2024 Marketeer</p>
-                    <Link href="/?admin=true" className="text-green-500">Admin</Link>
+                    <div className="flex text-sm">
+                        Marketplace owner? Sign up
+                        <Link href="/admin-signup" className="text-green-500 mx-1">here</Link> 
+                    </div>
                 </div>
             </div>
             <Image

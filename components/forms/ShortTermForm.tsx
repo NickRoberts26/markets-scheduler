@@ -13,6 +13,7 @@ import Link from "next/link";
 interface FormData {
     marketplace: string;
     date: string;
+    size: string;
     message?: string;
 }
 
@@ -78,6 +79,7 @@ const ShortTermForm = () => {
                 date: data.date,
                 message: data.message,
                 createdAt: new Date(),
+                status: 'Awaiting Confirmation'
 
             });
             setBooked(true);
@@ -106,56 +108,78 @@ const ShortTermForm = () => {
                     </div>
                 </div>
             ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <>
+                    <Link href="/" className='absolute top-0 left-0'>
+                        <img src="/assets/left-arrow.png" alt="" className="w-10 mr-2"/>
+                    </Link>
+                    <h1 className='text-5xl font-bold mb-8'>One-time Market Application</h1>
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-                    <div className='flex flex-col'>
-                        <label className='mb-2'>Available Markets</label>
-                        <select
-                            id="type"
-                            className='form-field'
-                            {...register('marketplace', { required: 'Market is required' })}
-                            onChange={(event) => {
-                                register('marketplace').onChange(event); // Handle form registration
-                                handleSelectChange(event); // Call custom handler
-                            }}
-                        >
-                            <option value="">Select a Marketplace</option>
-                            {marketplaces.map((marketplace) => (
-                                <option key={marketplace.id} value={marketplace.name}>{marketplace.name}</option>
-                            ))}
-                        </select>
-                        {errors.marketplace && <p>{errors.marketplace.message}</p>}
-                    </div>
+                        <div className='flex flex-col'>
+                            <label className='mb-2'>Available Markets</label>
+                            <select
+                                id="type"
+                                className='form-field'
+                                {...register('marketplace', { required: 'Market is required' })}
+                                onChange={(event) => {
+                                    register('marketplace').onChange(event); // Handle form registration
+                                    handleSelectChange(event); // Call custom handler
+                                }}
+                            >
+                                <option value="">Select a Marketplace</option>
+                                {marketplaces.map((marketplace) => (
+                                    <option key={marketplace.id} value={marketplace.name}>{marketplace.name}</option>
+                                ))}
+                            </select>
+                            {errors.marketplace && <p>{errors.marketplace.message}</p>}
+                        </div>
 
-                    <div className='flex flex-col'>
-                        <select
-                            id="type"
-                            className='form-field'
-                            {...register('date', { required: 'Date is required' })}
-                            disabled={!selectedMarketplace}
-                        >
-                            <option value="">Select available date</option>
-                            {currentDates.map((date, index) => (
-                                <option key={index} value={date}>{date}</option> // Populate dates dynamically
-                            ))}
+                        <div className='flex flex-col'>
+                            <select
+                                id="type"
+                                className='form-field'
+                                {...register('date', { required: 'Date is required' })}
+                                disabled={!selectedMarketplace}
+                            >
+                                <option value="">Select available date</option>
+                                {currentDates.map((date, index) => (
+                                    <option key={index} value={date}>{date}</option> // Populate dates dynamically
+                                ))}
 
-                        </select>
-                        {errors.date && <p>{errors.date.message}</p>}
-                    </div>
+                            </select>
+                            {errors.date && <p>{errors.date.message}</p>}
+                        </div>
 
-                    <div className='flex flex-col'>
-                        <label className='mb-2'>Message</label>
-                        <textarea
-                            id="message"
-                            {...register('message')}
-                            placeholder='Leave a message for any additional info.'
-                            className='form-field'
-                        />
-                        {errors.message && <p>{errors.message.message}</p>}
-                    </div>
-            
-                    <button type="submit" className='form-button'>Submit</button>
-                </form>
+                        <div className='flex flex-col'>
+                            <select
+                                id="size"
+                                className='form-field'
+                                {...register('size', { required: 'Size is required' })}
+                            >
+                                <option value="">Select stall size</option>
+                                <option value="Small">Small (1.8m x 2.4m)</option>
+                                <option value="Medium">Medium (2.4m x 2.4m)</option>
+                                <option value="Large">Large (3.0m x 3.0m)</option>
+
+                            </select>
+                            {errors.date && <p>{errors.date.message}</p>}
+                        </div>
+
+                        <div className='flex flex-col py-4'>
+                            <label className='mb-2'>Message</label>
+                            <textarea
+                                id="message"
+                                {...register('message')}
+                                placeholder='Leave a message for any additional info.'
+                                className='form-field'
+                                rows={4}
+                            />
+                            {errors.message && <p>{errors.message.message}</p>}
+                        </div>
+                
+                        <button type="submit" className='form-button'>Submit</button>
+                    </form>
+                </>
             )}
         </div>
     )

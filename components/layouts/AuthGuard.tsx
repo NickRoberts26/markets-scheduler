@@ -13,7 +13,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const publicPaths = ['/login', '/signup'];
+  const publicPaths = ['/login', '/signup', '/admin-signup'];
 
   useEffect(() => {
     if (!user && !publicPaths.includes(pathname)) {

@@ -66,7 +66,7 @@ const LoginForm = () => {
                     <button type="submit" className='form-button'>{loading ? <ClipLoader size={15} color={"#000"} /> : 'Login'}</button>
                 </form>
             </div>
-            <p className="mt-10">Not registerd? Sign up <Link href="/signup" className="text-green-500">here</Link></p>
+            <p className="mt-10">Not registered? Sign up <Link href="/signup" className="text-green-500">here</Link></p>
         </div>
     );
 }

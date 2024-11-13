@@ -1,11 +1,12 @@
 import React from 'react'
 import ShortTermForm from "@/components/forms/ShortTermForm";
 import Image from 'next/image';
+import Link from 'next/link';
 
 const BookSingle = () => {
     return (
         <div className='flex h-screen max-h-screen'>
-            <div className='flex justify-center items-center w-[70%] px-16 py-10'>
+            <div className='flex flex-col relative justify-center w-[70%] mx-16 my-10'>
                 <ShortTermForm />
             </div>
             <Image

@@ -4,16 +4,9 @@ import Link from 'next/link'
 import Image from "next/image";
 import React from 'react'
 import { auth } from '@/lib/firebase';
+import { handleLogout } from '@/utils/handleLogout';
 
 const Sidebar = () => {
-
-    async function handleLogout() {
-        try {
-            await auth.signOut();
-        } catch (error) {
-            console.log(error);
-        }
-    }
     
     return (
         <div className='w-[80px] border-r-2 px-2 pt-8 flex flex-col items-center'>
