@@ -13,7 +13,7 @@ interface FormData {
     email: string;
     password: string;
     contactNumber: string;
-    marketplaceName: string;
+    name: string;
     type: string;
     capacity: number;
     abn: number;
@@ -34,7 +34,7 @@ const AdminSignupForm: React.FC = () => {
 
             await addDoc(collection(db, "marketplaces"), {
                 uid: user.uid,
-                marketplaceName: data.marketplaceName,
+                marketplaceName: data.name,
                 type: data.type,
                 capacity: data.capacity,
                 email: data.email,
@@ -59,11 +59,11 @@ const AdminSignupForm: React.FC = () => {
                     <div className='flex flex-col'>
                         <label>Marketplace name</label>
                         <input 
-                            {...register('marketplaceName', { required: 'Marketplace Name is required' })}
+                            {...register('name', { required: 'Marketplace Name is required' })}
                             placeholder='Marketplace Name'
                             className='form-field'
                         />
-                        {errors.marketplaceName && <p>{errors.marketplaceName.message}</p>}
+                        {errors.name && <p>{errors.name.message}</p>}
                     </div>
 
                     <div className="flex justify-between">

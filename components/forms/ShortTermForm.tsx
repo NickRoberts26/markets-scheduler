@@ -9,6 +9,8 @@ import useAuth from "@/auth/useAuth";
 import {v4 as uuidv4} from 'uuid';
 import Image from 'next/image';
 import Link from "next/link";
+import emailjs from "emailjs-com";
+import { useUserProfile } from "@/utils/useUserProfile";
 
 interface FormData {
     marketplace: string;
@@ -32,7 +34,28 @@ const ShortTermForm = () => {
     const [currentDates, setCurrentDates] = useState<string[]>([]);
     const [booked, setBooked] = useState<boolean>(false);
 
-    const { user } = useAuth();
+    const { user } = useUserProfile();
+
+    const sendConfirmationEmail = async (data: FormData, bookingId: string) => {
+        try {
+            const emailParams = {
+                to_name: user?.firstName,
+                user_email: user?.email,
+                booking_date: data.date,
+                marketplace_name: data.marketplace,
+                booking_id: bookingId
+            };
+    
+            await emailjs.send(
+                "service_qytpg0m", //Service ID
+                "template_91awnbe", //Template ID
+                emailParams,
+                "F0ZN2oeeu7noId2TR" //Public Key
+            );
+        } catch (error) {
+            console.error("Error sending email:", error);
+        }
+      };
     
     useEffect(() => {
         const fetchMarketplaces = async () => {
@@ -83,6 +106,7 @@ const ShortTermForm = () => {
 
             });
             setBooked(true);
+            sendConfirmationEmail(data, bookingId);
         } catch (error) {
             console.error("Error registering booking: ", error);
             alert("Failed to register booking. Please try again.");
