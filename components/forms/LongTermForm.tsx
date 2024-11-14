@@ -186,7 +186,7 @@ const LongTermForm = () => {
                             {errors.abn && <p>{errors.abn.message}</p>}
                         </div>
 
-                        <div className='flex flex-col py-4'>
+                        <div className='flex flex-col'>
                             <label className='mb-2'>Message</label>
                             <textarea
                                 id="message"
