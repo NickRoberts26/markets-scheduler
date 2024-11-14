@@ -10,6 +10,7 @@ interface ActiveMarket {
     marketplace: string;
     date: string;
     status: string;
+    bookingPeriod: string;
 }
 
 const ActiveMarkets = () => {
@@ -29,6 +30,7 @@ const ActiveMarkets = () => {
                 const markets = querySnapshot.docs.map(doc => ({
                     marketplace: doc.data().marketplace,
                     date: doc.data().date,
+                    bookingPeriod: doc.data().bookingPeriod,
                     status: doc.data().status
                 }));
                 setActiveMarket(markets);
@@ -59,11 +61,15 @@ const ActiveMarkets = () => {
                                     height={1000}
                                     width={1000}
                                     alt=''
-                                    className='w-[40%] border border-black rounded-full'
+                                    className='w-[40%] h-[100%] border border-black rounded-full'
                                 />
                                 <div className='w-[40%]'>
                                     <h2 className='text-lg mb-2'><span className='font-bold block text-xl'>Marketplace</span>{market.marketplace}</h2>
-                                    <h2 className='text-lg mb-2'><span className='font-bold block text-xl'>Date</span>{market.date}</h2>
+                                    {market.date ? (
+                                      <h2 className='text-lg mb-2'><span className='font-bold block text-xl'>Date</span>{market.date}</h2>
+                                    ) : (
+                                      <h2 className='text-lg mb-2'><span className='font-bold block text-xl'>Period</span>{market.bookingPeriod}</h2>
+                                    )}
                                     <h2 className='text-lg mb-2'><span className='font-bold block text-xl'>Status</span>{market.status}</h2>
                                 </div>
                             </div>

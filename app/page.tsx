@@ -17,7 +17,7 @@ export default function Home() {
           <>
             <h2 className="text-3xl font-bold mb-6">What are you looking for?</h2>
             <Link href="/book-single" className="action-button mb-5">Single Entrance</Link>
-            <Link href="/book-longterm" className="action-button mb-5">Longterm Position</Link>
+            <Link href="/book-long" className="action-button mb-5">Longterm Position</Link>
             <button onClick={() => setMarketSelection(false)} className="flex items-center"><img src="/assets/left-arrow.png" alt="" className="w-4 mr-2"/>Back</button>
           </>
         ) : (

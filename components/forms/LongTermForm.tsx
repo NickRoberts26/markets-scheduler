@@ -14,8 +14,9 @@ import { useUserProfile } from "@/utils/useUserProfile";
 
 interface FormData {
     marketplace: string;
-    date: string;
+    bookingPeriod: string;
     size: string;
+    abn: number;
     message?: string;
 }
 
@@ -23,15 +24,12 @@ interface Marketplace {
     id: string;
     name: string;
     type: string;
-    currentDates: string[];
 }
 
-const ShortTermForm = () => {
+const LongTermForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const [marketplaces, setMarketplaces] = useState<Marketplace[]>([]);
-    const [selectedMarketplace, setSelectedMarketplace] = useState<string>("");
-    const [currentDates, setCurrentDates] = useState<string[]>([]);
     const [booked, setBooked] = useState<boolean>(false);
 
     const { user } = useUserProfile();
@@ -41,7 +39,7 @@ const ShortTermForm = () => {
             const emailParams = {
                 to_name: user?.firstName,
                 user_email: user?.email,
-                booking_date: data.date,
+                booking_period: data.bookingPeriod,
                 marketplace_name: data.marketplace,
                 booking_id: bookingId
             };
@@ -62,14 +60,13 @@ const ShortTermForm = () => {
             try {
                 const marketplacesQuery = query(
                     collection(db, 'marketplaces'),
-                    where('type', '==', 'short')
+                    where('type', '==', 'long')
                 );
                 const querySnapshot = await getDocs(marketplacesQuery);
                 const data = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
                     name: doc.data().name as string,
                     type: doc.data().type as string,
-                    currentDates: doc.data().currentDates as string[]
                 }));
                 setMarketplaces(data);
             } catch (error) {
@@ -80,17 +77,6 @@ const ShortTermForm = () => {
         fetchMarketplaces();
     }, []);
 
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedName = event.target.value;
-        setSelectedMarketplace(selectedName);
-    
-        const selectedMarket = marketplaces.find((market) => market.name === selectedName);
-        console.log(selectedMarket);
-        if (selectedMarket) {
-          setCurrentDates(selectedMarket.currentDates || []); // Update currentDates state
-        }
-    };
-
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         let bookingId = uuidv4();
         try {
@@ -99,7 +85,8 @@ const ShortTermForm = () => {
                 bookingId: bookingId,
                 userId: user?.uid, 
                 marketplace: data.marketplace,
-                date: data.date,
+                bookingPeriod: data.bookingPeriod,
+                abn: data.abn,
                 message: data.message,
                 createdAt: new Date(),
                 status: 'Awaiting Confirmation'
@@ -136,7 +123,7 @@ const ShortTermForm = () => {
                     <Link href="/" className='absolute top-0 left-0'>
                         <img src="/assets/left-arrow.png" alt="" className="w-10 mr-2"/>
                     </Link>
-                    <h1 className='text-5xl font-bold mb-8'>One-time Market Application</h1>
+                    <h1 className='text-5xl font-bold mb-8'>Long-term Market Application</h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                         <div className='flex flex-col'>
@@ -145,10 +132,6 @@ const ShortTermForm = () => {
                                 id="type"
                                 className='form-field'
                                 {...register('marketplace', { required: 'Market is required' })}
-                                onChange={(event) => {
-                                    register('marketplace').onChange(event); // Handle form registration
-                                    handleSelectChange(event); // Call custom handler
-                                }}
                             >
                                 <option value="">Select a Marketplace</option>
                                 {marketplaces.map((marketplace) => (
@@ -160,18 +143,16 @@ const ShortTermForm = () => {
 
                         <div className='flex flex-col'>
                             <select
-                                id="type"
+                                id="booking-period"
                                 className='form-field'
-                                {...register('date', { required: 'Date is required' })}
-                                disabled={!selectedMarketplace}
+                                {...register('bookingPeriod', { required: 'Booking period is required' })}
                             >
-                                <option value="">Select available date</option>
-                                {currentDates.map((date, index) => (
-                                    <option key={index} value={date}>{date}</option> // Populate dates dynamically
-                                ))}
-
+                                <option value="">Select booking period</option>
+                                <option value="6-months">6 months</option>
+                                <option value="12-months">12 months</option>
+                                <option value="12-months-plus">12 months +</option>
                             </select>
-                            {errors.date && <p>{errors.date.message}</p>}
+                            {errors.bookingPeriod && <p>{errors.bookingPeriod.message}</p>}
                         </div>
 
                         <div className='flex flex-col'>
@@ -187,6 +168,22 @@ const ShortTermForm = () => {
 
                             </select>
                             {errors.size && <p>{errors.size.message}</p>}
+                        </div>
+
+                        <div className='flex flex-col'>
+                            <label>ABN</label>
+                            <input 
+                                {...register('abn', {
+                                    required: 'ABN is required',
+                                    pattern: {
+                                    value: /^(\d *?){11}$/,
+                                    message: 'Invalid ABN format',
+                                    },
+                                })}
+                                className='form-field'
+                                placeholder="51 824 753 556"
+                            />
+                            {errors.abn && <p>{errors.abn.message}</p>}
                         </div>
 
                         <div className='flex flex-col py-4'>
@@ -209,4 +206,4 @@ const ShortTermForm = () => {
     )
 }
 
-export default ShortTermForm
+export default LongTermForm
