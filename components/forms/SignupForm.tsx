@@ -36,6 +36,7 @@ const SignupForm: React.FC = () => {
                 lastName: data.lastName,
                 email: data.email,
                 phone: data.phone,
+                role: 'user',
                 createdAt: new Date(),
             });
 

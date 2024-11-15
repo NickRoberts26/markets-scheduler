@@ -1,21 +1,89 @@
-import React from 'react'
-import Image from 'next/image';
+'use client'
 
-const AdminPanel = () => {
+import React, { useEffect, useState } from 'react'
+import Image from 'next/image';
+import { useUserProfile } from '@/utils/useUserProfile';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+interface Booking {
+    date: string;
+    marketplace: string;
+    message: string;
+    userId: string;
+    status: string;
+}
+
+const AdminPanel: React.FC = () => {
+    const [bookings, setBookings] = useState<Booking[]>([]);
+    const [pendingBookings, setPendingBookings] = useState(0);
+    const [confirmedBookings, setConfirmedBookings] = useState(0);
+
+    const { user, marketplace, loading } = useUserProfile();
+
+    useEffect(() => {
+        const fetchBookings = async () => {
+            if (!marketplace?.marketplaceName) return;
+
+            try {
+                const bookingsQuery = query(
+                    collection(db, 'bookings'),
+                    where('marketplace', '==', marketplace?.marketplaceName)
+                );
+                const querySnapshot = await getDocs(bookingsQuery);
+                const data = querySnapshot.docs.map((doc) => ({
+                    date: doc.data().date as string,
+                    marketplace: doc.data().marketplace as string,
+                    message: doc.data().message as string,
+                    userId: doc.data().userId as string,
+                    status: doc.data().status as string,
+                }));
+                setBookings(data);
+            } catch (error) {
+                console.log("Error fetching bookings");
+            }
+        };
+    
+        fetchBookings();
+    }, [marketplace?.marketplaceName]);
+
+    //Calculate pending/confirmed bookings
+    useEffect(() => {
+        if(bookings) {
+            let pendingCount = 0;
+            let approvedCount = 0;
+            bookings.map((booking, _) => {
+                if(booking.status == 'Awaiting Confirmation') {
+                    pendingCount++;
+                } else if(booking.status == "Confirmed") {
+                    approvedCount++;
+                }
+            })
+            setPendingBookings(pendingCount);
+            setConfirmedBookings(approvedCount);
+        } else {
+            console.log('no bookings?');
+        }
+    }, [bookings]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    
+    if (!user) {
+        return <div>You are not logged in.</div>;
+    }
+
     return (
         <div className='px-16 py-10'>
-            <h1 className='text-5xl mb-8'>Welcome, Admin</h1>
+            <h1 className='text-5xl mb-8'>Welcome, {user.marketplaceName}</h1>
             <h2 className='text-xl mb-4'>Current Dates</h2>
             <div className='flex mb-8'>
-                <div className='date-pill'>
-                    <div>16/11/24</div>
-                </div>
-                <div className='date-pill'>
-                    <div>23/11/24</div>
-                </div>
-                <div className='date-pill'>
-                    <div>30/11/24</div>
-                </div>
+                {marketplace?.currentDates.map((date, index) => (
+                    <div key={index} className='date-pill'>
+                        <div>{date}</div>
+                    </div>       
+                ))}
             </div>
             <div className='flex justify-between'>
                 <div className="stat-card">
@@ -27,7 +95,7 @@ const AdminPanel = () => {
                             height={30}
                             className='h-fit'
                         />
-                        <div className='text-3xl font-bold mb-10 ml-2'>80</div>
+                        <div className='text-3xl font-bold mb-10 ml-2'>{confirmedBookings}</div>
                     </div>
                     <div>Total number of accepted applications</div>
                 </div>
@@ -40,7 +108,7 @@ const AdminPanel = () => {
                             height={30}
                             className='h-fit'
                         />
-                        <div className='text-3xl font-bold mb-10 ml-2'>10</div>
+                        <div className='text-3xl font-bold mb-10 ml-2'>{pendingBookings}</div>
                     </div>
                     <div>Total number of pending applications</div>
                 </div>

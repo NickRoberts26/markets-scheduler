@@ -43,6 +43,19 @@ const AdminSignupForm: React.FC = () => {
                 createdAt: new Date(),
             });
 
+            await addDoc(collection(db, "users"), {
+                uid: user.uid,
+                marketplaceName: data.name,
+                email: data.email,
+                phone: data.contactNumber,
+                role: 'admin',
+                createdAt: new Date(),
+            });
+
+            await updateProfile(user, {
+                displayName: data.name,
+            });
+
             router.push('/login');
         } catch (error) {
             console.error("Error registering admin user: ", error);

@@ -21,7 +21,7 @@ interface FormData {
 
 interface Marketplace {
     id: string;
-    name: string;
+    marketplaceName: string;
     type: string;
     currentDates: string[];
 }
@@ -67,7 +67,7 @@ const ShortTermForm = () => {
                 const querySnapshot = await getDocs(marketplacesQuery);
                 const data = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
-                    name: doc.data().name as string,
+                    marketplaceName: doc.data().marketplaceName as string,
                     type: doc.data().type as string,
                     currentDates: doc.data().currentDates as string[]
                 }));
@@ -84,7 +84,7 @@ const ShortTermForm = () => {
         const selectedName = event.target.value;
         setSelectedMarketplace(selectedName);
     
-        const selectedMarket = marketplaces.find((market) => market.name === selectedName);
+        const selectedMarket = marketplaces.find((market) => market.marketplaceName === selectedName);
         console.log(selectedMarket);
         if (selectedMarket) {
           setCurrentDates(selectedMarket.currentDates || []); // Update currentDates state
@@ -152,7 +152,7 @@ const ShortTermForm = () => {
                             >
                                 <option value="">Select a Marketplace</option>
                                 {marketplaces.map((marketplace) => (
-                                    <option key={marketplace.id} value={marketplace.name}>{marketplace.name}</option>
+                                    <option key={marketplace.id} value={marketplace.marketplaceName}>{marketplace.marketplaceName}</option>
                                 ))}
                             </select>
                             {errors.marketplace && <p>{errors.marketplace.message}</p>}
