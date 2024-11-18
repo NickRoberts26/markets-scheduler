@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useUserProfile } from '@/utils/useUserProfile';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import RequestFeed from '@/components/admin/RequestFeed';
 
 interface Booking {
     date: string;
@@ -12,6 +13,7 @@ interface Booking {
     message: string;
     userId: string;
     status: string;
+    bookingId: string;
 }
 
 const AdminPanel: React.FC = () => {
@@ -37,6 +39,7 @@ const AdminPanel: React.FC = () => {
                     message: doc.data().message as string,
                     userId: doc.data().userId as string,
                     status: doc.data().status as string,
+                    bookingId: doc.data().bookingId as string,
                 }));
                 setBookings(data);
             } catch (error) {
@@ -85,7 +88,7 @@ const AdminPanel: React.FC = () => {
                     </div>       
                 ))}
             </div>
-            <div className='flex justify-between'>
+            <div className='flex justify-between mb-10'>
                 <div className="stat-card">
                     <div className='flex'>
                         <Image
@@ -126,6 +129,7 @@ const AdminPanel: React.FC = () => {
                     <div>Total number of rejected applications</div>
                 </div>
             </div>
+            <RequestFeed userBookings={bookings}/>
         </div>
     )
 }

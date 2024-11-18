@@ -59,15 +59,15 @@ const MarketRegistrationForm: React.FC = () => {
                         {...register('productType', { required: 'Product Type is required' })}
                     >
                         <option value="">Select a product type</option>
-                        <option value="candles-fragrance-aroma">Candles/Fragrance/Aroma & Gift Items</option>
-                        <option value="fashion-seocondhand">Fashion (Secondhand)</option>
-                        <option value="fashion-new">Fashion (New Products)</option>
-                        <option value="hand-crafts">Hand Crafts</option>
-                        <option value="homewares">Homewares</option>
-                        <option value="jewellery">Jewellery</option>
-                        <option value="fitness">Fitness/Life Style</option>
-                        <option value="pet-care">Pet Care</option>
-                        <option value="prints-frames">Prints & Frames</option>
+                        <option value="Candles/Fragrance/Aroma">Candles/Fragrance/Aroma & Gift Items</option>
+                        <option value="Fashion(Secondhand)">Fashion (Secondhand)</option>
+                        <option value="Fashion(New)">Fashion (New Products)</option>
+                        <option value="Hand Crafts">Hand Crafts</option>
+                        <option value="Homewares">Homewares</option>
+                        <option value="Jewellery">Jewellery</option>
+                        <option value="Fitness">Fitness/Life Style</option>
+                        <option value="Pet Care">Pet Care</option>
+                        <option value="Prints/Frames">Prints & Frames</option>
                     </select>
                     {errors.productType && <p>{errors.productType.message}</p>}
                 </div>
