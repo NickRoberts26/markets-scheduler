@@ -41,7 +41,7 @@ const SingleRequest: React.FC<RequestFeedProps> = ( { date, status, userId } ) =
     }, []);
 
     return (
-        <div className='flex items-center'>
+        <div className='flex items-center p-4'>
             <p className='w-[25%]'>{marketInfo?.marketName}</p>
             <p className='w-[15%]'>{marketInfo?.productType}</p>
             <p className='w-[15%]'>{date}</p>

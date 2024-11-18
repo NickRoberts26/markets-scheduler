@@ -24,9 +24,11 @@ const RequestFeed: React.FC<RequestFeedProps> = ({ userBookings }) => {
                 <h2 className='w-[15%] font-bold text-lg'>Requested Date</h2>
                 <h2 className='w-[15%] font-bold text-lg'>Status</h2>
             </div>
-            {userBookings.map((booking, _) => {
-                return <SingleRequest key={booking.bookingId} date={booking.date} status={booking.status} userId={booking.userId} />
-            })}
+            <div className='[&>*:nth-child(odd)]:bg-gray-200'>
+                {userBookings.map((booking, _) => {
+                    return <SingleRequest key={booking.bookingId} date={booking.date} status={booking.status} userId={booking.userId}  />
+                })}
+            </div>
         </div>
     )
 }

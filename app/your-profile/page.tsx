@@ -17,6 +17,7 @@ const YourMarket: React.FC = () => {
                     <Profile />
                     <ActiveMarkets />
                 </div>
+                <MarketRegistrationForm />
             </div>
         </div>
     )
