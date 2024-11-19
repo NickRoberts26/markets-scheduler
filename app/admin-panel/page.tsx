@@ -20,6 +20,7 @@ const AdminPanel: React.FC = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [pendingBookings, setPendingBookings] = useState(0);
     const [confirmedBookings, setConfirmedBookings] = useState(0);
+    const [deniedBookings, setDeniedBookings] = useState(0);
 
     const { user, marketplace, loading } = useUserProfile();
 
@@ -52,34 +53,28 @@ const AdminPanel: React.FC = () => {
 
     //Calculate pending/confirmed bookings
     useEffect(() => {
-        if(bookings) {
-            let pendingCount = 0;
-            let approvedCount = 0;
-            bookings.map((booking, _) => {
-                if(booking.status == 'Awaiting Confirmation') {
-                    pendingCount++;
-                } else if(booking.status == "Confirmed") {
-                    approvedCount++;
-                }
-            })
-            setPendingBookings(pendingCount);
-            setConfirmedBookings(approvedCount);
+        if (bookings) {
+            const counts = bookings.reduce(
+                (acc, booking) => {
+                    if (booking.status === 'Awaiting Confirmation') acc.pending++;
+                    else if (booking.status === 'Confirmed') acc.approved++;
+                    else if (booking.status === 'Denied') acc.denied++;
+                    return acc;
+                },
+                { pending: 0, approved: 0, denied: 0 } // Initial counts
+            );
+    
+            setPendingBookings(counts.pending);
+            setConfirmedBookings(counts.approved);
+            setDeniedBookings(counts.denied);
         } else {
-            console.log('no bookings?');
+            console.log('No bookings?');
         }
     }, [bookings]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-    
-    if (!user) {
-        return <div>You are not logged in.</div>;
-    }
-
     return (
         <div className='px-16 py-10'>
-            <h1 className='text-5xl mb-8'>Welcome, {user.marketplaceName}</h1>
+            <h1 className='text-5xl mb-8'>Welcome, {user?.marketplaceName}</h1>
             <h2 className='text-xl mb-4'>Current Dates</h2>
             <div className='flex mb-8'>
                 {marketplace?.currentDates.map((date, index) => (
@@ -124,7 +119,7 @@ const AdminPanel: React.FC = () => {
                             height={30}
                             className='h-fit'
                         />
-                        <div className='text-3xl font-bold mb-10 ml-2'>0</div>
+                        <div className='text-3xl font-bold mb-10 ml-2'>{deniedBookings}</div>
                     </div>
                     <div>Total number of rejected applications</div>
                 </div>

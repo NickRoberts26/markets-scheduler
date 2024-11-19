@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -43,6 +43,8 @@ const SignupForm: React.FC = () => {
             await updateProfile(user, {
                 displayName: data.firstName,
             });
+
+            await signOut(auth);
 
             router.push('/login');
         } catch (error) {
