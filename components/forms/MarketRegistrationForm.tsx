@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import Image from "next/image";
 import Link from 'next/link';
+import { ClipLoader } from 'react-spinners';
 
 interface FormData {
     marketName: string;
@@ -16,12 +17,14 @@ interface FormData {
 
 const MarketRegistrationForm: React.FC = () => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
     
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const { user } = useAuth();
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
+        setLoading(true);
         try {
 
             await addDoc(collection(db, "markets"), {
@@ -31,6 +34,8 @@ const MarketRegistrationForm: React.FC = () => {
                 bio: data?.bio,
                 createdAt: new Date(),
             });
+
+            location.reload();
         } catch (error) {
             console.error("Error registering market: ", error);
             alert("Failed to register market. Please try again.");
@@ -38,9 +43,9 @@ const MarketRegistrationForm: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='w-[95%]'>
             <h1 className='text-5xl font-bold mb-8'>Market Registration</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-[60%]">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className='flex flex-col'>
                     <label className='mb-2'>Market Name</label>
                     <input 
@@ -83,7 +88,7 @@ const MarketRegistrationForm: React.FC = () => {
                     {errors.bio && <p>{errors.bio.message}</p>}
                 </div>
         
-                <button type="submit" className='form-button'>Submit</button>
+                <button type="submit" className='form-button'>{loading ? <ClipLoader size={15} color={"#000"} /> : 'Submit'}</button>
             </form>
         </div>
     )

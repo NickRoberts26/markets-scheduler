@@ -9,15 +9,17 @@ import { useState } from 'react';
 const YourMarket: React.FC = () => {
 
     return (
-        <div className='flex h-screen max-h-screen'>
+        <div className='flex min-h-screen'>
             <Sidebar />
             <div className='flex-1 px-16 py-10'>
                 <h1 className='text-5xl font-bold mb-8'>Your Profile</h1>
                 <div className='flex'>
-                    <Profile />
+                    <div className='w-[50%]'>
+                        <Profile />
+                        <MarketRegistrationForm />
+                    </div>
                     <ActiveMarkets />
                 </div>
-                <MarketRegistrationForm />
             </div>
         </div>
     )
