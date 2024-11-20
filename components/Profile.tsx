@@ -12,18 +12,21 @@ interface Market {
   productType: string;
 }
 
-interface DetailsFormData {
+interface FormData {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+  marketName: string;
+  productType: string;
+  bio: string;
 }
 
 const Profile: React.FC = () => {
     const [market, setMarket] = useState<Market | null>(null);
-    const [editingDetails, setEditingDetails] = useState(false);
+    const [editing, setEditing] = useState(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<DetailsFormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const { user, loading } = useUserProfile();
     const currentUid = user?.uid;
@@ -54,7 +57,7 @@ const Profile: React.FC = () => {
       }
     }, [currentUid]);
 
-    const onSubmit: SubmitHandler<DetailsFormData> = async (data) => {
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
       try {
         const q = query(
           collection(db, 'users'),
@@ -98,10 +101,10 @@ const Profile: React.FC = () => {
     return (
       <div className='flex justify-between mb-10'>
         <div className='w-[95%]'>
-          <div className='border-2 border-black rounded-xl p-4'>
+          <div className='border-2 border-black rounded-xl p-4 relative'>
             <h2 className='text-3xl mb-4 underline'>Personal Details</h2>
-            {editingDetails ? (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-10">
+            {editing ? (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-4">
                   <div className='flex items-center'>
                     <p className='text-xl w-[20%]'><strong>First Name:</strong></p>
                     <input 
@@ -158,27 +161,73 @@ const Profile: React.FC = () => {
                     {errors.phone && <p>{errors.phone.message}</p>}
                   </div>
 
+                  <h2 className='text-3xl mb-4 underline'>Market Details</h2>
+
+                  <div className='flex items-center'>
+                    <p className='text-xl w-[20%]'><strong>Name:</strong></p>
+                    <input 
+                        {...register('marketName', { required: 'Market Name is required' })}
+                        defaultValue={market?.marketName}
+                        className='form-field ml-4 flex-1'
+                    />
+                    {errors.marketName && <p>{errors.marketName.message}</p>}
+                  </div>
+
+                  <div className='flex items-center'>
+                    <p className='text-xl w-[20%]'><strong>Product:</strong></p>
+                    <select
+                        id="type"
+                        className='form-field ml-4 flex-1'
+                        defaultValue={market?.productType}
+                        {...register('productType', { required: 'Product Type is required' })}
+                    >
+                        <option value="">Select a product type</option>
+                        <option value="Candles/Fragrance/Aroma">Candles/Fragrance/Aroma & Gift Items</option>
+                        <option value="Fashion(Secondhand)">Fashion (Secondhand)</option>
+                        <option value="Fashion(New)">Fashion (New Products)</option>
+                        <option value="Hand Crafts">Hand Crafts</option>
+                        <option value="Homewares">Homewares</option>
+                        <option value="Jewellery">Jewellery</option>
+                        <option value="Fitness">Fitness/Life Style</option>
+                        <option value="Pet Care">Pet Care</option>
+                        <option value="Prints/Frames">Prints & Frames</option>
+                    </select>
+                    {errors.productType && <p>{errors.productType.message}</p>}
+                  </div>
+
+                  <div className='flex items-center'>
+                    <p className='text-xl w-[20%]'><strong>Bio:</strong></p>
+                    <textarea
+                        id="bio"
+                        {...register('bio')}
+                        defaultValue={market?.bio}
+                        className='form-field ml-4 flex-1'
+                    />
+                    {errors.bio && <p>{errors.bio.message}</p>}
+                  </div>
+
                   <button type="submit" className='form-button'>{loading ? <ClipLoader size={15} color={"#000"} /> : 'Submit'}</button>
               </form>
             ) : (
-              <div className='mb-8'>
-                <p className='text-xl mb-2'><strong>First Name:</strong> {user.firstName}</p>
-                <p className='text-xl mb-2'><strong>Last Name:</strong> {user.lastName}</p>
-                <p className='text-xl mb-2'><strong>Email:</strong> {user.email}</p>
-                <p className='text-xl'><strong>Phone:</strong> {user.phone}</p>
-                <button onClick={() => setEditingDetails(true)} className='basic-button mr-4 mt-6'>Edit Details</button>
-              </div>
-            )}
-            {market ? (
-              <div>
-                <h2 className='text-3xl mb-4 underline'>Market Details</h2>
-                <p className='text-2xl mb-2'>{market.marketName}</p>
-                <p className='text-xl mb-2 capitalize'><strong>Product Type:</strong> {market.productType}</p>
-                <p className='text-xl'><strong>Bio:</strong> {market.bio}</p>
-                <button className='basic-button mr-4 mt-6'>Edit Market</button>
-              </div>
-            ) : (
-              <p>No market details available.</p>
+              <>
+                <div className='mb-8'>
+                  <p className='text-xl mb-2'><strong>First Name:</strong> {user.firstName}</p>
+                  <p className='text-xl mb-2'><strong>Last Name:</strong> {user.lastName}</p>
+                  <p className='text-xl mb-2'><strong>Email:</strong> {user.email}</p>
+                  <p className='text-xl'><strong>Phone:</strong> {user.phone}</p>
+                </div>
+                {market ? (
+                  <div>
+                    <h2 className='text-3xl mb-4 underline'>Market Details</h2>
+                    <p className='text-2xl mb-2'>{market.marketName}</p>
+                    <p className='text-xl mb-2 capitalize'><strong>Product Type:</strong> {market.productType}</p>
+                    <p className='text-xl'><strong>Bio:</strong> {market.bio}</p>
+                  </div>
+                ) : (
+                  <p>No market details available.</p>
+                )}
+                <button onClick={() => setEditing(true)} className='basic-button absolute top-4 right-4'>Edit Profile</button>
+              </>
             )}
           </div>
         </div>
