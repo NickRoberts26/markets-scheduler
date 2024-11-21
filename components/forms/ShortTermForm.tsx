@@ -102,7 +102,7 @@ const ShortTermForm = () => {
                 date: data.date,
                 message: data.message,
                 createdAt: new Date(),
-                status: 'Awaiting Confirmation',
+                status: 'Awaiting Confirmation'
 
             });
             setBooked(true);

@@ -16,6 +16,7 @@ interface Marketplace {
     contactNumber: string;
     capacity: string;
     uid: string;
+    bio: string;
 }
 
 const MarketplacePage = () => {
@@ -78,6 +79,11 @@ const MarketplacePage = () => {
                 <Sidebar />
             <div className='px-10 py-8 w-full'>
                 <h1 className='text-5xl font-bold mb-8'>{marketplace.marketplaceName}</h1>
+                {marketplace.bio && (
+                    <div className="mb-6 w-4/5">
+                        <p className='text-xl'>{marketplace.bio}</p>
+                    </div>
+                )}
                 <ApprovedMarkets marketplaceName={marketplace.marketplaceName}/>
             </div>
         </div>
