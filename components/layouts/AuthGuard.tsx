@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import BeatLoader from "react-spinners/BeatLoader";
+import LoadingScreen from '../LoadingScreen';
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -29,14 +30,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
   // Render a loading state until the authentication check is complete
   if (!authChecked) {
     return (
-      <div className='flex h-[100vh] justify-center items-center'>
-        <BeatLoader
-          size={20}
-          color='#4caf50'
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-    </div>
+      <LoadingScreen />
     );
   }
 
