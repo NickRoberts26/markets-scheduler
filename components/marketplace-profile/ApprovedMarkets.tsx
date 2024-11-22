@@ -19,6 +19,7 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
     const [bookings, setBookings] = useState<string[]>([]);
     const [markets, setMarkets] = useState<Markets[] | null>(null);
     const [activeDate, setActiveDate] = useState<string>('');
+    const [loading, setLoading] = useState(false);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         const y = (e.target as HTMLDivElement).innerText;
@@ -56,6 +57,8 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
     }, [activeDate]);
 
     useEffect(() => {
+        setLoading(true);
+
         const fetchMarketInfo = async () => {
             try {
                 const marketInfoQuery = query(
@@ -72,8 +75,9 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
                 }));
 
                 setMarkets(data);
+                setLoading(false);
             } catch (error) {
-                
+                console.log(error);
             }
         }
 
@@ -90,7 +94,7 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
                             <button onClick={handleClick} key={index} className='basic-button-alt mr-2'>{date}</button>
                         ))}
                     </div>
-                    {markets ? (
+                    {markets && bookings.length > 0 ? (
                         <>
                             <div className='flex font-bold text-lg mb-2'>
                                 <p className='w-2/5'>Name</p>
