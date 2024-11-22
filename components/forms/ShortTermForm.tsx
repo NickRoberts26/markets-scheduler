@@ -155,7 +155,7 @@ const ShortTermForm = () => {
                                     <option key={marketplace.id} value={marketplace.marketplaceName}>{marketplace.marketplaceName}</option>
                                 ))}
                             </select>
-                            {errors.marketplace && <p>{errors.marketplace.message}</p>}
+                            {errors.marketplace && <p className='text-red-500'>{errors.marketplace.message}</p>}
                         </div>
 
                         <div className='flex flex-col'>
@@ -171,7 +171,7 @@ const ShortTermForm = () => {
                                 ))}
 
                             </select>
-                            {errors.date && <p>{errors.date.message}</p>}
+                            {errors.date && <p className='text-red-500'>{errors.date.message}</p>}
                         </div>
 
                         <div className='flex flex-col'>
@@ -186,7 +186,7 @@ const ShortTermForm = () => {
                                 <option value="Large">Large (3.0m x 3.0m)</option>
 
                             </select>
-                            {errors.size && <p>{errors.size.message}</p>}
+                            {errors.size && <p className='text-red-500'>{errors.size.message}</p>}
                         </div>
 
                         <div className='flex flex-col py-4'>
@@ -198,7 +198,7 @@ const ShortTermForm = () => {
                                 className='form-field'
                                 rows={4}
                             />
-                            {errors.message && <p>{errors.message.message}</p>}
+                            {errors.message && <p className='text-red-500'>{errors.message.message}</p>}
                         </div>
                 
                         <button type="submit" className='form-button'>Submit</button>

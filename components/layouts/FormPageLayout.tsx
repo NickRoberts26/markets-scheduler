@@ -39,10 +39,12 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
                 {children}
                 <div className="flex justify-between items-end">
                     <p className="text-sm">© 2024 Marketeer</p>
-                    <div className="flex text-sm">
-                        Marketplace owner? Sign up
-                        <Link href="/admin-signup" className="text-green-500 mx-1">here</Link> 
-                    </div>
+                    {!user && (
+                        <div className="flex text-sm">
+                            Marketplace owner? Sign up
+                            <Link href="/admin-signup" className="text-green-500 mx-1">here</Link> 
+                        </div>
+                    )}
                 </div>
             </div>
             <Image

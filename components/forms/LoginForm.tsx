@@ -14,7 +14,7 @@ interface FormData {
 }
 
 const LoginForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<FormData>();
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);
@@ -24,8 +24,13 @@ const LoginForm = () => {
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             router.push('/');
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            console.log("Error details:", error); // Debugging
+            if (error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
+                setError("password", { type: "manual", message: "Invalid email or password" });
+            } else {
+                console.error("An unexpected error occurred:", error);
+            }
         } finally {
           setLoading(false);
         }
@@ -49,7 +54,7 @@ const LoginForm = () => {
                             placeholder='Email'
                             className='form-field'
                         />
-                        {errors.email && <p>{errors.email.message}</p>}
+                        {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                     </div>
 
                     <div className='flex flex-col'>
@@ -60,7 +65,7 @@ const LoginForm = () => {
                             {...register("password", { required: "Password is required" })}
                             className='form-field'
                         />
-                        {errors.password && <p>{errors.password.message}</p>}
+                        {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
             
                     <button type="submit" className='form-button'>{loading ? <ClipLoader size={15} color={"#000"} /> : 'Login'}</button>

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 interface ApprovedMarketsProps {
     marketplaceName: string;
+    currentDates?: string[];
 }
 
 interface Markets {
@@ -14,19 +15,31 @@ interface Markets {
     ownerid: string;
 }
 
-const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName } ) => {
+const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, currentDates } ) => {
     const [bookings, setBookings] = useState<string[]>([]);
     const [markets, setMarkets] = useState<Markets[] | null>(null);
+    const [activeDate, setActiveDate] = useState<string>('');
 
-    console.log(marketplaceName);
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const y = (e.target as HTMLDivElement).innerText;
+        setActiveDate(y);
+    }
 
     useEffect(() => {
+        if(currentDates) {
+            setActiveDate(currentDates[0]);
+        }
+    }, [])
+
+    useEffect(() => {
+
         const fetchBookings = async () => {
             try {
                 const bookingsQuery = query(
                     collection(db, 'bookings'),
                     where('marketplace', '==', marketplaceName),
                     where('status', '==', 'Confirmed'),
+                    where('date', '==', activeDate)
                 );
 
                 const querySnapshot = await getDocs(bookingsQuery);
@@ -40,7 +53,7 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName } ) 
         }
 
         fetchBookings();
-    }, []);
+    }, [activeDate]);
 
     useEffect(() => {
         const fetchMarketInfo = async () => {
@@ -72,18 +85,25 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName } ) 
             <div className='w-[95%]'>
                 <div className='border-2 border-black rounded-xl p-4'>
                     <h2 className='text-3xl mb-4 underline'>Currently Booked Markets</h2>
+                    <div className='flex mb-4'>
+                        {currentDates?.map((date, index) => (
+                            <button onClick={handleClick} key={index} className='basic-button-alt mr-2'>{date}</button>
+                        ))}
+                    </div>
                     {markets ? (
                         <>
                             <div className='flex font-bold text-lg mb-2'>
                                 <p className='w-2/5'>Name</p>
                                 <p>Product</p>
                             </div>
-                            {markets.map((market, _) => (
-                                <div key={market.ownerid} className='flex'>
-                                    <p className='w-2/5'>{market.marketName}</p>
-                                    <p>{market.productType}</p>
-                                </div>
-                            ))}
+                            <div className='[&>*:nth-child(odd)]:bg-gray-200'>
+                                {markets.map((market, _) => (
+                                    <div key={market.ownerid} className='flex p-1'>
+                                        <p className='w-2/5'>{market.marketName}</p>
+                                        <p>{market.productType}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </>
                     ) : (
                         <h3 className='text-xl'>No markets booked yet!</h3>

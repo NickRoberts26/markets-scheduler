@@ -53,7 +53,7 @@ const MarketRegistrationForm: React.FC = () => {
                         placeholder='Market Name'
                         className='form-field'
                     />
-                    {errors.marketName && <p>{errors.marketName.message}</p>}
+                    {errors.marketName && <p className='text-red-500'>{errors.marketName.message}</p>}
                 </div>
 
                 <div className='flex flex-col'>
@@ -74,7 +74,7 @@ const MarketRegistrationForm: React.FC = () => {
                         <option value="Pet Care">Pet Care</option>
                         <option value="Prints/Frames">Prints & Frames</option>
                     </select>
-                    {errors.productType && <p>{errors.productType.message}</p>}
+                    {errors.productType && <p className='text-red-500'>{errors.productType.message}</p>}
                 </div>
 
                 <div className='flex flex-col'>

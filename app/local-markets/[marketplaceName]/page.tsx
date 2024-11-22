@@ -8,6 +8,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 interface Marketplace {
     marketplaceName: string;
@@ -17,11 +18,13 @@ interface Marketplace {
     capacity: string;
     uid: string;
     bio: string;
+    currentDates?: string[];
 }
 
 const MarketplacePage = () => {
     const [marketplace, setMarketplace] = useState<Marketplace | null>(null);
     const [loading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
     
     const getSegment = (url: string) => {
         const parts = url.split('/');
@@ -84,7 +87,19 @@ const MarketplacePage = () => {
                         <p className='text-xl'>{marketplace.bio}</p>
                     </div>
                 )}
-                <ApprovedMarkets marketplaceName={marketplace.marketplaceName}/>
+                <div className='flex'>
+                    <ApprovedMarkets marketplaceName={marketplace.marketplaceName} currentDates={marketplace.currentDates}/>
+                    {!hasError && (
+                        <Image
+                            src={`/assets/markets/${marketplace.marketplaceName.replace(/\s+/g, '-').toLowerCase()}.jpg`}
+                            alt="markets"
+                            width={1000}
+                            height={1000}
+                            className='w-1/2 rounded-3xl'
+                            onError={() => setHasError(true)}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     );
