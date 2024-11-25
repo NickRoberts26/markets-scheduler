@@ -6,6 +6,8 @@ import { useUserProfile } from '@/utils/useUserProfile';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import RequestFeed from '@/components/admin/RequestFeed';
+import { handleLogout } from '@/utils/handleLogout';
+import Link from 'next/link';
 
 interface Booking {
     date: string;
@@ -21,8 +23,22 @@ const AdminPanel: React.FC = () => {
     const [pendingBookings, setPendingBookings] = useState(0);
     const [confirmedBookings, setConfirmedBookings] = useState(0);
     const [deniedBookings, setDeniedBookings] = useState(0);
+    const [activeDate, setActiveDate] = useState<string>('');
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const { user, marketplace, loading } = useUserProfile();
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
+        const y = (e.target as HTMLDivElement).innerText;
+        setActiveDate(y);
+        setActiveIndex(index);
+    }
+
+    useEffect(() => {
+        if(marketplace?.currentDates) {
+            setActiveDate(marketplace.currentDates[0]);
+        }
+    }, [marketplace])
 
     useEffect(() => {
         const fetchBookings = async () => {
@@ -67,6 +83,7 @@ const AdminPanel: React.FC = () => {
             setPendingBookings(counts.pending);
             setConfirmedBookings(counts.approved);
             setDeniedBookings(counts.denied);
+
         } else {
             console.log('No bookings?');
         }
@@ -74,13 +91,28 @@ const AdminPanel: React.FC = () => {
 
     return (
         <div className='px-16 py-10'>
-            <h1 className='text-5xl mb-8'>Welcome, {user?.marketplaceName}</h1>
+            <div className="flex justify-between mb-8">
+                <h1 className='text-5xl'>Welcome, {user?.marketplaceName}</h1>
+                <div className='flex'>
+                    <Link href="/manage-marketplace" className='flex items-center basic-button mr-4'>
+                        Manage Details
+                    </Link>
+                    <div className='flex items-center'>
+                        <button onClick={handleLogout} className='text-xl font-bold mr-2'>Logout</button>
+                        <Image
+                            src="/assets/logout.png"
+                            height={1000}
+                            width={1000}
+                            alt="logo"
+                            className="h-9 w-fit"
+                        />
+                    </div>
+                </div>
+            </div>
             <h2 className='text-xl mb-4'>Current Dates</h2>
-            <div className='flex mb-8'>
+            <div className='flex mb-8'>     
                 {marketplace?.currentDates.map((date, index) => (
-                    <div key={index} className='date-pill'>
-                        <div>{date}</div>
-                    </div>       
+                    <button onClick={(e) => handleClick(e, index)} key={index} className={`basic-button-alt mr-2 ${index === activeIndex ? 'bg-green-400' : ''}`}>{date}</button>
                 ))}
             </div>
             <div className='flex justify-between mb-10'>
@@ -124,7 +156,7 @@ const AdminPanel: React.FC = () => {
                     <div>Total number of rejected applications</div>
                 </div>
             </div>
-            <RequestFeed userBookings={bookings}/>
+            <RequestFeed userBookings={bookings} activeDate={activeDate}/>
         </div>
     )
 }

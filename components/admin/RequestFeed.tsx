@@ -12,9 +12,10 @@ interface Booking {
 
 interface RequestFeedProps {
     userBookings: Booking[];
+    activeDate: string;
 }
 
-const RequestFeed: React.FC<RequestFeedProps> = ({ userBookings }) => {
+const RequestFeed: React.FC<RequestFeedProps> = ({ userBookings, activeDate }) => {
 
     return (
         <div className='border border-black p-4 rounded-xl'>
@@ -26,7 +27,9 @@ const RequestFeed: React.FC<RequestFeedProps> = ({ userBookings }) => {
             </div>
             <div className='[&>*:nth-child(odd)]:bg-gray-200'>
                 {userBookings.map((booking, _) => {
-                    return <SingleRequest key={booking.bookingId} bookingId={booking.bookingId} date={booking.date} status={booking.status} userId={booking.userId} />
+                    if(booking.date === activeDate) {
+                        return <SingleRequest key={booking.bookingId} bookingId={booking.bookingId} date={booking.date} status={booking.status} userId={booking.userId} />
+                    }
                 })}
             </div>
         </div>

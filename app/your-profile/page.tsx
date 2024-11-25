@@ -4,7 +4,6 @@ import ActiveMarkets from '@/components/profile/ActiveMarkets';
 import MarketRegistrationForm from '@/components/forms/MarketRegistrationForm';
 import Profile from '@/components/profile/Profile';
 import Sidebar from '@/components/Sidebar';
-import { useState } from 'react';
 
 const YourMarket: React.FC = () => {
 

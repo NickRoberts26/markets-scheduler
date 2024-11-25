@@ -20,10 +20,12 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
     const [markets, setMarkets] = useState<Markets[] | null>(null);
     const [activeDate, setActiveDate] = useState<string>('');
     const [loading, setLoading] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
         const y = (e.target as HTMLDivElement).innerText;
         setActiveDate(y);
+        setActiveIndex(index);
     }
 
     useEffect(() => {
@@ -91,7 +93,7 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
                     <h2 className='text-3xl mb-4 underline'>Currently Booked Markets</h2>
                     <div className='flex mb-4'>
                         {currentDates?.map((date, index) => (
-                            <button onClick={handleClick} key={index} className='basic-button-alt mr-2'>{date}</button>
+                            <button onClick={(e) => handleClick(e, index)} key={index} className={`basic-button-alt mr-2 ${index === activeIndex ? 'bg-green-400' : ''}`}>{date}</button>
                         ))}
                     </div>
                     {markets && bookings.length > 0 ? (
