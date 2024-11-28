@@ -8,6 +8,8 @@ import { db } from '@/lib/firebase';
 import RequestFeed from '@/components/admin/RequestFeed';
 import { handleLogout } from '@/utils/handleLogout';
 import Link from 'next/link';
+import RequestTotals from './RequestTotals';
+import Sidebar from '../Sidebar';
 
 interface Booking {
     date: string;
@@ -90,73 +92,28 @@ const AdminPanel: React.FC = () => {
     }, [bookings]);
 
     return (
-        <div className='px-16 py-10'>
-            <div className="flex justify-between mb-8">
-                <h1 className='text-5xl'>Welcome, {user?.marketplaceName}</h1>
-                <div className='flex'>
-                    <Link href="/manage-marketplace" className='flex items-center basic-button mr-4'>
+        <div className='flex min-h-screen'>
+            <Sidebar />
+            <div className='px-16 py-10 flex-1'>
+                <div className="flex justify-between mb-8">
+                    <h1 className='text-5xl'>Welcome, {user?.marketplaceName}</h1>
+                    <Link href="/manage-marketplace" className='flex items-center basic-button'>
                         Manage Details
                     </Link>
-                    <div className='flex items-center'>
-                        <button onClick={handleLogout} className='text-xl font-bold mr-2'>Logout</button>
-                        <Image
-                            src="/assets/logout.png"
-                            height={1000}
-                            width={1000}
-                            alt="logo"
-                            className="h-9 w-fit"
-                        />
-                    </div>
                 </div>
+                <h2 className='text-xl mb-4'>Current Dates</h2>
+                <div className='flex mb-8'>     
+                    {marketplace?.currentDates.map((date, index) => (
+                        <button onClick={(e) => handleClick(e, index)} key={index} className={`basic-button-alt mr-2 ${index === activeIndex ? 'bg-green-400' : ''}`}>{date}</button>
+                    ))}
+                </div>
+                <div className='flex justify-between mb-10'>
+                    <RequestTotals stat={confirmedBookings} icon="calender" iconwidth={40} />
+                    <RequestTotals stat={pendingBookings} icon="pending" iconwidth={35} />
+                    <RequestTotals stat={deniedBookings} icon="denied" iconwidth={32} />
+                </div>
+                <RequestFeed userBookings={bookings} activeDate={activeDate}/>
             </div>
-            <h2 className='text-xl mb-4'>Current Dates</h2>
-            <div className='flex mb-8'>     
-                {marketplace?.currentDates.map((date, index) => (
-                    <button onClick={(e) => handleClick(e, index)} key={index} className={`basic-button-alt mr-2 ${index === activeIndex ? 'bg-green-400' : ''}`}>{date}</button>
-                ))}
-            </div>
-            <div className='flex justify-between mb-10'>
-                <div className="stat-card">
-                    <div className='flex'>
-                        <Image
-                            src='/assets/icons/calender-icon.png'
-                            alt="markets"
-                            width={40}
-                            height={30}
-                            className='h-fit'
-                        />
-                        <div className='text-3xl font-bold mb-10 ml-2'>{confirmedBookings}</div>
-                    </div>
-                    <div>Total number of accepted applications</div>
-                </div>
-                <div className="stat-card">
-                    <div className='flex'>
-                        <Image
-                            src='/assets/icons/pending-icon.png'
-                            alt="markets"
-                            width={35}
-                            height={30}
-                            className='h-fit'
-                        />
-                        <div className='text-3xl font-bold mb-10 ml-2'>{pendingBookings}</div>
-                    </div>
-                    <div>Total number of pending applications</div>
-                </div>
-                <div className="stat-card">
-                    <div className='flex'>
-                        <Image
-                            src='/assets/icons/denied-icon.png'
-                            alt="markets"
-                            width={32}
-                            height={30}
-                            className='h-fit'
-                        />
-                        <div className='text-3xl font-bold mb-10 ml-2'>{deniedBookings}</div>
-                    </div>
-                    <div>Total number of rejected applications</div>
-                </div>
-            </div>
-            <RequestFeed userBookings={bookings} activeDate={activeDate}/>
         </div>
     )
 }

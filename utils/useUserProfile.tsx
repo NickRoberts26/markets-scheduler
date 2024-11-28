@@ -22,6 +22,7 @@ interface Marketplace {
   contactNumber: string;
   currentDates: string[];
   email: string;
+  bio?: string;
 }
 
 export const useUserProfile = () => {
