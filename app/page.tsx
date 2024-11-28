@@ -7,7 +7,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { db } from "@/lib/firebase";
 import { handleLogout } from "@/utils/handleLogout";
 import { useUserProfile } from "@/utils/useUserProfile";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -15,12 +15,35 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [marketSelection, setMarketSelection] = useState(false);
   const [role, setRole] = useState('');
+  const [hasMarket, setHasMarket] = useState(false);
+
   const { user } = useUserProfile();
 
   useEffect(() => {
     if(user) {
       setRole(user.role);
     }
+  }, [user])
+
+  useEffect(() => {
+    const fetchMarkets = async () => {
+      if(user) {
+        try {
+          const marketQuery = query(
+            collection(db, 'markets'),
+            where('ownerid', '==', user?.uid)
+          );
+          const querySnapshot = await getDocs(marketQuery);
+          if(querySnapshot.size > 0) {
+            setHasMarket(true);
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+
+    fetchMarkets();
   }, [user])
 
   if(role === 'user') {
@@ -36,8 +59,15 @@ export default function Home() {
             </>
           ) : (
             <>
-              <Link href="/your-profile" className="action-button mb-5">View Profile ({role})</Link>
-              <button onClick={() => setMarketSelection(true)} className="action-button mb-5">Book a stall</button>
+              <Link href="/your-profile" className="action-button mb-5">View Profile</Link>
+              {hasMarket ? (
+                <button onClick={() => setMarketSelection(true)} className="action-button mb-5">Book a stall</button>
+              ) : (
+                <>
+                  <button disabled className="w-[50%] bg-green-500 border-4 border-black rounded-full py-4 text-xl font-semibold text-center mb-2 opacity-50">Book a stall</button>
+                  <p className="text-sm mb-2">Register your market in profile to book a stall.</p>
+                </>
+              )}
               <Link href="/local-markets" className="action-button">View Local Markets</Link>
             </>
           )}
