@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marketeer
 
-## Getting Started
+Marketeer is a market scheduling platform designed to connect users with marketplace owners for seamless booking and management. Built with **Next.js** and **TypeScript**, styled using **Tailwind CSS** with **Google Firebase** as a database, Marketeer provides a user-friendly interface for registering and managing markets.
 
-First, run the development server:
+## Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### User Features
+- **Register and Login**: Securely create an account and log in using Firebase Authentication.
+- **Market Registration**: Register your own market to book stalls at various marketplaces listed on the platform.
+- **Profile Management**: View and manage your registered market as well as personal details via your profile.
+- **Marketplace Hub**: View what markets are availble to you, as well as what stalls are already booked to help find whats right for you.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Admin Features (Marketplace Owners)
+- **Marketplace Registration**: Create and manage your own marketplaces, making them visible to users.
+- **Admin Panel Access**: 
+  - Approve or deny booking requests from users.
+  - Add new dates and update details for your marketplace.
+  - Manage additional information about your marketplace.
 
-## Learn More
+## Frontend
+- **Next.js**: Framework for building the web application.
+- **TypeScript**: Ensures type-safe development for scalability.
+- **Tailwind CSS**: Provides efficient and responsive styling.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Backend
+- **Google Firebase**:
+  - **Authentication**: For secure user account creation and management.
+  - **Cloud Firestore**: As the primary database for storing user, market, and booking data.
+  - **Cloud Functions**: For serverless logic to handle backend processes.
