@@ -10,6 +10,7 @@ import { handleLogout } from '@/utils/handleLogout';
 import Link from 'next/link';
 import RequestTotals from './RequestTotals';
 import Sidebar from '../Sidebar';
+import LoadingScreen from '../LoadingScreen';
 
 interface Booking {
     date: string;
@@ -90,6 +91,10 @@ const AdminPanel: React.FC = () => {
             console.log('No bookings?');
         }
     }, [bookings]);
+
+    if(!user) {
+        return <LoadingScreen />
+    }
 
     return (
         <div className='flex min-h-screen'>
