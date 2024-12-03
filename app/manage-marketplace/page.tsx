@@ -29,7 +29,7 @@ const ManageMarketplace = () => {
                         {marketplace && currentUid && <MarketplaceProfile marketplace={marketplace} currentUid={currentUid}/>}
                     </div>
                     <div className='w-1/2'>
-                        {marketplace && <ScheduledDates marketplace={marketplace}/>}
+                        {marketplace && currentUid && <ScheduledDates marketplace={marketplace} currentUid={currentUid}/>}
                     </div>
                 </div>
             </div>
