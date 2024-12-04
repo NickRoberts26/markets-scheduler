@@ -56,8 +56,8 @@ const SignupForm: React.FC = () => {
     };
 
     return (
-        <div className="border-2 border-black rounded-xl p-6 mx-20">
-            <div className="text-3xl mb-6">Signup</div>
+        <div className="border-2 border-black rounded-xl p-4 lg:p-6 lg:mx-20">
+            <div className="text-xl lg:text-3xl mb-6">Signup</div>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div className="flex justify-between">

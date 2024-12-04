@@ -37,7 +37,7 @@ const LoginForm = () => {
     };
 
     return (
-        <div className="border-2 border-black rounded-xl p-6 mx-20">
+        <div className="border-2 border-black rounded-xl p-6 lg:mx-20">
             <div className="text-3xl mb-6">Login</div>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

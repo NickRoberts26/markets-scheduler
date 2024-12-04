@@ -79,15 +79,15 @@ const MarketplacePage = () => {
 
     return (
         <div className='flex h-screen max-h-screen'>
-                <Sidebar />
-            <div className='px-10 py-8 w-full'>
-                <h1 className='text-5xl font-bold mb-8'>{marketplace.marketplaceName}</h1>
+            <Sidebar />
+            <div className='px-6 pt-24 lg:px-10 lg:py-8 w-full'>
+                <h1 className='text-3xl lg:text-5xl font-bold mb-8'>{marketplace.marketplaceName}</h1>
                 {marketplace.bio && (
-                    <div className="mb-6 w-4/5">
-                        <p className='text-xl'>{marketplace.bio}</p>
+                    <div className="mb-6 lg:w-4/5">
+                        <p className='lg:text-xl'>{marketplace.bio}</p>
                     </div>
                 )}
-                <div className='flex'>
+                <div className='flex flex-col lg:flex-row'>
                     <ApprovedMarkets marketplaceName={marketplace.marketplaceName} currentDates={marketplace.currentDates}/>
                     {!hasError && (
                         <Image
@@ -95,7 +95,7 @@ const MarketplacePage = () => {
                             alt="markets"
                             width={1000}
                             height={1000}
-                            className='w-1/2 rounded-3xl'
+                            className='lg:w-1/2 rounded-3xl mb-6 lg:mb-0 order-1 lg:order-2'
                             onError={() => setHasError(true)}
                         />
                     )}

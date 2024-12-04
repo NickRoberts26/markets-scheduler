@@ -87,26 +87,26 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
     }, [bookings]);
 
     return (
-        <div className='flex justify-between w-[50%]'>
-            <div className='w-[95%]'>
-                <div className='border-2 border-black rounded-xl p-4'>
-                    <h2 className='text-3xl mb-4 underline'>Currently Booked Markets</h2>
-                    <div className='flex mb-4'>
+        <div className='flex justify-between lg:w-[50%] order-2 lg:order-1'>
+            <div className='w-full lg:w-[95%]'>
+                <div className='border-2 border-black rounded-xl p-4 mb-6 lg:mb-0'>
+                    <h2 className='text-2xl lg:text-3xl mb-4 underline'>Currently Booked Markets</h2>
+                    <div className='flex flex-wrap justify-between lg:jus mb-4'>
                         {currentDates?.map((date, index) => (
-                            <button onClick={(e) => handleClick(e, index)} key={index} className={`basic-button-alt mr-2 ${index === activeIndex ? 'bg-green-400' : ''}`}>{date}</button>
+                            <button onClick={(e) => handleClick(e, index)} key={index} className={`basic-button-alt w-[30%] text-sm lg:text-base lg:mr-2 ${index === activeIndex ? 'bg-green-400' : ''}`}>{date}</button>
                         ))}
                     </div>
                     {markets && bookings.length > 0 ? (
                         <>
                             <div className='flex font-bold text-lg mb-2'>
                                 <p className='w-2/5'>Name</p>
-                                <p>Product</p>
+                                <p className='w-3/5'>Product</p>
                             </div>
                             <div className='[&>*:nth-child(odd)]:bg-gray-200'>
                                 {markets.map((market, _) => (
                                     <div key={market.ownerid} className='flex p-1'>
-                                        <p className='w-2/5'>{market.marketName}</p>
-                                        <p>{market.productType}</p>
+                                        <p className='w-2/5 text-sm lg:text-base'>{market.marketName}</p>
+                                        <p className='w-3/5 text-sm lg:text-base'>{market.productType}</p>
                                     </div>
                                 ))}
                             </div>

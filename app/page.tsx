@@ -52,7 +52,7 @@ export default function Home() {
         <div className="flex flex-col items-center w-full">
           {marketSelection ? (
             <>
-              <h2 className="text-3xl font-bold mb-6">What are you looking for?</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold mb-6 text-center">What are you looking for?</h2>
               <Link href="/book-single" className="action-button mb-5">Single Entrance</Link>
               <Link href="/book-long" className="action-button mb-5">Longterm Position</Link>
               <button onClick={() => setMarketSelection(false)} className="flex items-center"><img src="/assets/left-arrow.png" alt="" className="w-4 mr-2"/>Back</button>

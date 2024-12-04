@@ -15,7 +15,7 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
     
     return (
         <div className="flex h-screen max-h-screen">
-            <div className="flex flex-col justify-between w-[50%] px-10 py-10">
+            <div className="flex flex-col justify-between px-6 py-6 w-full lg:w-[50%] lg:px-10 lg:py-10">
                 <div className="flex justify-between items-start">
                     <Link href="/" className="flex items-center">
                         <Image
@@ -38,9 +38,9 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
                 </div>
                 {children}
                 <div className="flex justify-between items-end">
-                    <p className="text-sm">© 2024 Marketeer</p>
+                    <p className="text-xs lg:text-sm">© 2024 Marketeer</p>
                     {!user && (
-                        <div className="flex text-sm">
+                        <div className="flex text-xs lg:text-sm">
                             Marketplace owner? Sign up
                             <Link href="/admin-signup" className="text-green-500 mx-1">here</Link> 
                         </div>
