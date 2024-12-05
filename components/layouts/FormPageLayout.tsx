@@ -48,7 +48,7 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ children }) => {
                 </div>
             </div>
             <Image
-                src="/assets/markets-cropped.png"
+                src="/assets/markets-cropped.PNG"
                 alt="markets"
                 width={1000}
                 height={1000}
