@@ -16,7 +16,6 @@ interface Market {
 
 const SingleRequest: React.FC<RequestFeedProps> = ( { date, status, userId, bookingId } ) => {
     const [marketInfo, setMarketInfo] = useState<Market>();
-    const [bookingStatus, setBookingStatus] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
     const updateStatus = async (newStatus: string) => {
@@ -33,7 +32,6 @@ const SingleRequest: React.FC<RequestFeedProps> = ( { date, status, userId, book
                 await updateDoc(docRef, {
                   status: newStatus,
                 });
-                setBookingStatus(true);
                 location.reload();
             }
 
@@ -59,12 +57,12 @@ const SingleRequest: React.FC<RequestFeedProps> = ( { date, status, userId, book
                     console.log("No market found for this user.");
                 }
             } catch (error) {
-                console.log("Error fetching bookings");
+                console.log("Error fetching bookings", error);
             }
         };
     
         fetchMarketInfo();
-    }, []);
+    }, [userId]);
 
     useEffect(() => {
         const handleResize = () => {

@@ -27,7 +27,7 @@ const AdminPanel: React.FC = () => {
     const [activeDate, setActiveDate] = useState<string>('');
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const { user, marketplace, loading } = useUserProfile();
+    const { user, marketplace } = useUserProfile();
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
         const y = (e.target as HTMLDivElement).innerText;
@@ -61,7 +61,7 @@ const AdminPanel: React.FC = () => {
                 }));
                 setBookings(data);
             } catch (error) {
-                console.log("Error fetching bookings");
+                console.log("Error fetching bookings", error);
             }
         };
     

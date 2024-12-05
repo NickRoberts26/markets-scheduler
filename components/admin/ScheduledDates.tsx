@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 interface Marketplace {
-    currentDates: any[];
+    currentDates: string[];
 }
 
 interface ScheduledDatesProps {
@@ -97,7 +97,7 @@ const ScheduledDates: React.FC<ScheduledDatesProps> = ( { marketplace, currentUi
                 <h2 className='text-3xl mb-2'>Scheduled Dates</h2>
                 {editing ? (
                     <>
-                        {theDates.map((date, index) => (
+                        {theDates.map((date) => (
                             <div key={date} className='flex items-center mb-4'>
                                 <p className='text-lg'>{date}</p>
                                 <button id={date} onClick={handleClick} className='basic-button ml-6'>Delete</button>

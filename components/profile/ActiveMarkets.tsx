@@ -39,7 +39,7 @@ const ActiveMarkets = () => {
               }
             }
           } catch (error) {
-            console.log('Failed to load market data');
+            console.log('Failed to load market data', error);
           }
         };
     

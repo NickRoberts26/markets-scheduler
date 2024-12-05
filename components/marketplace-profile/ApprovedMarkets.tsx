@@ -19,7 +19,6 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
     const [bookings, setBookings] = useState<string[]>([]);
     const [markets, setMarkets] = useState<Markets[] | null>(null);
     const [activeDate, setActiveDate] = useState<string>('');
-    const [loading, setLoading] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
@@ -32,7 +31,7 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
         if(currentDates) {
             setActiveDate(currentDates[0]);
         }
-    }, [])
+    }, [currentDates])
 
     useEffect(() => {
 
@@ -56,10 +55,9 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
         }
 
         fetchBookings();
-    }, [activeDate]);
+    }, [activeDate, marketplaceName]);
 
     useEffect(() => {
-        setLoading(true);
 
         const fetchMarketInfo = async () => {
             try {
@@ -77,7 +75,6 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
                 }));
 
                 setMarkets(data);
-                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -103,7 +100,7 @@ const ApprovedMarkets: React.FC<ApprovedMarketsProps> = ( { marketplaceName, cur
                                 <p className='w-3/5'>Product</p>
                             </div>
                             <div className='[&>*:nth-child(odd)]:bg-gray-200'>
-                                {markets.map((market, _) => (
+                                {markets.map((market) => (
                                     <div key={market.ownerid} className='flex p-1'>
                                         <p className='w-2/5 text-sm lg:text-base'>{market.marketName}</p>
                                         <p className='w-3/5 text-sm lg:text-base'>{market.productType}</p>

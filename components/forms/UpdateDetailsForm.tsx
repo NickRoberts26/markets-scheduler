@@ -18,7 +18,6 @@ const UpdateDetailsForm = () => {
     const {
         register,
         handleSubmit,
-        setValue,
         reset,
         formState: { errors },
     } = useForm<FormData>({

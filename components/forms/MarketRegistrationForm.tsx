@@ -14,7 +14,6 @@ interface FormData {
 }
 
 const MarketRegistrationForm: React.FC = () => {
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();

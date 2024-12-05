@@ -37,7 +37,7 @@ const MarketsFeed = () => {
 
                 setMarketplaces(data);
             } catch (error) {
-                
+                console.log(error)
             }
         }
 
@@ -46,7 +46,7 @@ const MarketsFeed = () => {
 
     return (
         <div className='grid lg:grid-cols-3 lg:gap-x-5'>
-            {marketplaces?.map((marketplace, _) => {
+            {marketplaces?.map((marketplace) => {
                 console.log(marketplace);
                 return (
                     <Link key={marketplace.uid} href={`/local-markets/${marketplace.marketplaceName.replace(/\s+/g, '-').toLowerCase()}`} className='relative h-[35vh] lg:h-[40vh] mb-5 transition-all duration-500 hover:scale-105'>

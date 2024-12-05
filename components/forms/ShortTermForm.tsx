@@ -90,7 +90,7 @@ const ShortTermForm = () => {
     };
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
-        let bookingId = uuidv4();
+        const bookingId = uuidv4();
         try {
             await addDoc(collection(db, "bookings"), {
 

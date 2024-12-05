@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { FirebaseError } from 'firebase/app';
 
 interface FormData {
     email: string;
@@ -24,12 +25,16 @@ const LoginForm = () => {
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             router.push('/');
-        } catch (error: any) {
-            console.log("Error details:", error); // Debugging
-            if (error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
-                setError("password", { type: "manual", message: "Invalid email or password" });
+        } catch (error: unknown) {
+            if (error instanceof FirebaseError) {
+                console.log("Error details:", error.message);
+                if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found") {
+                    setError("password", { type: "manual", message: "Invalid email or password" });
+                } else {
+                    console.error("An unexpected error occurred:", error.message);
+                }
             } else {
-                console.error("An unexpected error occurred:", error);
+                console.error("Unknown error:", error);
             }
         } finally {
           setLoading(false);

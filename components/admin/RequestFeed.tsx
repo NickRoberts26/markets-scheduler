@@ -27,7 +27,7 @@ const RequestFeed: React.FC<RequestFeedProps> = ({ userBookings, activeDate }) =
             </div>
             <h1 className='text-2xl font-bold mb-6 block lg:hidden'>Booking Requests</h1>
             <div className='[&>*:nth-child(odd)]:bg-gray-200'>
-                {userBookings.map((booking, _) => {
+                {userBookings.map((booking) => {
                     if(booking.date === activeDate) {
                         return <SingleRequest key={booking.bookingId} bookingId={booking.bookingId} date={booking.date} status={booking.status} userId={booking.userId} />
                     }
