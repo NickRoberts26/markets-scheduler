@@ -3,9 +3,7 @@
 import { db } from "@/lib/firebase";
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
-import useAuth from "@/auth/useAuth";
 import {v4 as uuidv4} from 'uuid';
 import Image from 'next/image';
 import Link from "next/link";

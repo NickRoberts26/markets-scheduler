@@ -6,7 +6,6 @@ import ScheduledDates from '@/components/admin/ScheduledDates';
 import LoadingScreen from '@/components/LoadingScreen';
 import Sidebar from '@/components/Sidebar'
 import { useUserProfile } from '@/utils/useUserProfile';
-import React, { use, useState } from 'react'
 
 const ManageMarketplace = () => {
     const { marketplace, loading } = useUserProfile();

@@ -4,9 +4,7 @@ import useAuth from '@/auth/useAuth';
 import { db } from '@/lib/firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
-import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
-import Image from "next/image";
-import Link from 'next/link';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { ClipLoader } from 'react-spinners';
 
 interface FormData {

@@ -1,12 +1,10 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image';
 import { useUserProfile } from '@/utils/useUserProfile';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import RequestFeed from '@/components/admin/RequestFeed';
-import { handleLogout } from '@/utils/handleLogout';
 import Link from 'next/link';
 import RequestTotals from './RequestTotals';
 import Sidebar from '../Sidebar';

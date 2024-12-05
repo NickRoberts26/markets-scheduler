@@ -1,9 +1,7 @@
 import { db } from '@/lib/firebase';
-import { useUserProfile } from '@/utils/useUserProfile';
 import { collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ClipLoader } from 'react-spinners';
 
 interface BioProps {
     marketplace: Marketplace;

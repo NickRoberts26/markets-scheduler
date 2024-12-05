@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "@/lib/firebase";
 import Link from 'next/link';
 import { useState } from 'react';
-import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import ClipLoader from 'react-spinners/ClipLoader';
 

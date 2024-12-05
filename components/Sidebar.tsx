@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import Image from "next/image";
 import React from 'react'
-import { auth } from '@/lib/firebase';
 import { handleLogout } from '@/utils/handleLogout';
 
 const Sidebar = () => {

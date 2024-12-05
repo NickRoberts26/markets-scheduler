@@ -5,8 +5,7 @@ import LoadingScreen from '@/components/LoadingScreen';
 import ApprovedMarkets from '@/components/marketplace-profile/ApprovedMarkets';
 import Sidebar from '@/components/Sidebar';
 import { db } from '@/lib/firebase';
-import { collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import { useRouter } from 'next/navigation';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 

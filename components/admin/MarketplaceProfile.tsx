@@ -1,6 +1,4 @@
-import { useUserProfile } from '@/utils/useUserProfile';
 import React, { useState } from 'react'
-import LoadingScreen from '../LoadingScreen';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';

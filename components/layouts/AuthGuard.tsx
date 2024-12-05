@@ -2,9 +2,7 @@
 
 import useAuth from '@/auth/useAuth';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import BeatLoader from "react-spinners/BeatLoader";
+import { useEffect } from 'react';
 import LoadingScreen from '../LoadingScreen';
 
 interface AuthGuardProps {

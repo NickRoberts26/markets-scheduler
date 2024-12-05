@@ -1,10 +1,9 @@
-import { auth, db } from '@/lib/firebase';
+import { db } from '@/lib/firebase';
 import { useUserProfile } from '@/utils/useUserProfile';
-import { getAuth } from 'firebase/auth';
 import { collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { BeatLoader, ClipLoader } from 'react-spinners';
-import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface Market {
   bio: string;

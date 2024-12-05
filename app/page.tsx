@@ -1,14 +1,11 @@
 "use client"
 
-import useAuth from "@/auth/useAuth";
 import AdminPanel from "@/components/admin/AdminPanel";
 import FormPageLayout from "@/components/layouts/FormPageLayout";
 import LoadingScreen from "@/components/LoadingScreen";
 import { db } from "@/lib/firebase";
-import { handleLogout } from "@/utils/handleLogout";
 import { useUserProfile } from "@/utils/useUserProfile";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
-import Image from "next/image";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
