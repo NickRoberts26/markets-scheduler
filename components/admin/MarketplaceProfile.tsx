@@ -131,8 +131,9 @@ const MarketplaceProfile: React.FC<MarketplaceProfileProps> = ( { marketplace, c
                 )}
             </div>
             {editing ? (
-                <div>
+                <div className='flex'>
                     <button type="submit" form="details-form" className='basic-button mt-4'>Submit</button>
+                    <button onClick={() => {setEditing(false)}} className='basic-button mt-4 ml-4'>Cancel</button>
                 </div>
             ) : (
                 <button onClick={() => {setEditing(true)}} className='basic-button mt-4'>Edit Details</button>

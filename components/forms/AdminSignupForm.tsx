@@ -66,7 +66,7 @@ const AdminSignupForm: React.FC = () => {
     };
 
     return (
-        <div className="border-2 border-black rounded-xl p-4 mx-10">
+        <div className="border-2 border-black rounded-xl p-4 lg:mx-10">
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div className='flex flex-col'>

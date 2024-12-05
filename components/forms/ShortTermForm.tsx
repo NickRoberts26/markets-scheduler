@@ -116,7 +116,7 @@ const ShortTermForm = () => {
     return (
         <div className="w-full">
             {booked ? (
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center text-center h-screen">
                     <Image
                         src='/assets/very-nice.gif'
                         alt="markets"
@@ -134,9 +134,9 @@ const ShortTermForm = () => {
             ) : (
                 <>
                     <Link href="/" className='absolute top-0 left-0'>
-                        <img src="/assets/left-arrow.png" alt="" className="w-10 mr-2"/>
+                        <img src="/assets/left-arrow.png" alt="" className="w-6 lg:w-10 mr-2"/>
                     </Link>
-                    <h1 className='text-5xl font-bold mb-8'>One-time Market Application</h1>
+                    <h1 className='text-3xl lg:text-5xl font-bold mb-8 mt-8 lg:mt-0'>One-time Market Application</h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                         <div className='flex flex-col'>

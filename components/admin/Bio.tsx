@@ -55,7 +55,7 @@ const Bio: React.FC<BioProps> = ( { marketplace, currentUid } ) => {
     return (
         <>
             <div className='border-2 border-black rounded-xl p-4'>
-                <h2 className='text-3xl mb-2'>Marketplace Bio</h2>
+                <h2 className='text-2xl lg:text-3xl mb-2'>Marketplace Bio</h2>
                 {editingBio ? (
                     <form onSubmit={handleSubmit(onSubmit)} id="bio-form" action="">
                         <div className='flex items-center'>
@@ -75,8 +75,9 @@ const Bio: React.FC<BioProps> = ( { marketplace, currentUid } ) => {
                 )}
             </div>
             {editingBio ? (
-                <div>
+                <div className='flex'>
                     <button type="submit" form="bio-form" className='basic-button mt-4'>Submit</button>
+                    <button onClick={() => {setEditingBio(false)}} className='basic-button mt-4 ml-4'>Cancel</button>
                 </div>
             ) : (
                 <button onClick={() => {setEditingBio(true)}} className='basic-button mt-4'>{marketplace?.bio ? ('Update Bio') : ('Write Bio')}</button>

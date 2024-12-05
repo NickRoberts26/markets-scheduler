@@ -10,10 +10,10 @@ const YourMarket: React.FC = () => {
     return (
         <div className='flex min-h-screen'>
             <Sidebar />
-            <div className='flex-1 px-16 py-10'>
-                <h1 className='text-5xl font-bold mb-8'>Your Profile</h1>
-                <div className='flex'>
-                    <div className='w-[50%]'>
+            <div className='flex-1 px-6 pt-24 lg:px-10 lg:py-8'>
+                <h1 className='text-3xl lg:text-5xl font-bold mb-8'>Your Profile</h1>
+                <div className='flex flex-col lg:flex-row'>
+                    <div className='w-full lg:w-[50%]'>
                         <Profile />
                         <MarketRegistrationForm />
                     </div>

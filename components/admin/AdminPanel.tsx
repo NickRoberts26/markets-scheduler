@@ -99,10 +99,10 @@ const AdminPanel: React.FC = () => {
     return (
         <div className='flex min-h-screen'>
             <Sidebar />
-            <div className='px-16 py-10 flex-1'>
-                <div className="flex justify-between mb-8">
-                    <h1 className='text-5xl'>Welcome, {user?.marketplaceName}</h1>
-                    <Link href="/manage-marketplace" className='flex items-center basic-button'>
+            <div className='px-6 lg:px-16 py-10 flex-1 mt-16 lg:mt-0'>
+                <div className="flex justify-between flex-col lg:flex-row mb-8">
+                    <h1 className='text-5xl order-2 lg:order-1'>Welcome, {user?.marketplaceName}</h1>
+                    <Link href="/manage-marketplace" className='flex items-center basic-button mb-6 lg:mb-0 order-1 lg:order-2 w-fit'>
                         Manage Details
                     </Link>
                 </div>

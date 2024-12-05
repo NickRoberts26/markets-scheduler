@@ -100,9 +100,9 @@ const Profile: React.FC = () => {
   
     return (
       <div className='flex justify-between mb-10'>
-        <div className='w-[95%]'>
+        <div className='lg:w-[95%]'>
           <div className='border-2 border-black rounded-xl p-4 relative'>
-            <h2 className='text-3xl mb-4 underline'>Personal Details</h2>
+            <h2 className='text-2xl lg:text-3xl mb-4 underline'>Personal Details</h2>
             {editing ? (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-4">
                   <div className='flex items-center'>
@@ -161,7 +161,7 @@ const Profile: React.FC = () => {
                     {errors.phone && <p>{errors.phone.message}</p>}
                   </div>
 
-                  <h2 className='text-3xl mb-4 underline'>Market Details</h2>
+                  <h2 className='text-2xl lg:text-3xl mb-4 underline'>Market Details</h2>
 
                   <div className='flex items-center'>
                     <p className='text-xl w-[20%]'><strong>Name:</strong></p>
@@ -218,8 +218,8 @@ const Profile: React.FC = () => {
                 </div>
                 {market ? (
                   <div>
-                    <h2 className='text-3xl mb-4 underline'>Market Details</h2>
-                    <p className='text-2xl mb-2'>{market.marketName}</p>
+                    <h2 className='text-2xl lg:text-3xl mb-4 underline'>Market Details</h2>
+                    <p className='text-xl lg:text-2xl mb-2'>{market.marketName}</p>
                     <p className='text-xl mb-2 capitalize'><strong>Product Type:</strong> {market.productType}</p>
                     <p className='text-xl'><strong>Bio:</strong> {market.bio}</p>
                   </div>

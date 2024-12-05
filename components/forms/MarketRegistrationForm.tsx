@@ -43,8 +43,8 @@ const MarketRegistrationForm: React.FC = () => {
     };
 
     return (
-        <div className='w-[95%]'>
-            <h1 className='text-5xl font-bold mb-8'>Market Registration</h1>
+        <div className='lg:w-[95%] mb-10 lg:mb-0'>
+            <h1 className='text-3xl lg:text-5xl font-bold mb-8'>Market Registration</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className='flex flex-col'>
                     <label className='mb-2'>Market Name</label>

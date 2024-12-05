@@ -64,7 +64,7 @@ export default function Home() {
                 <button onClick={() => setMarketSelection(true)} className="action-button mb-5">Book a stall</button>
               ) : (
                 <>
-                  <button disabled className="w-[50%] bg-green-500 border-4 border-black rounded-full py-4 text-xl font-semibold text-center mb-2 opacity-50">Book a stall</button>
+                  <button disabled className="w-[75%] lg:w-[50%] bg-green-500 border-4 border-black rounded-full py-4 text-xl font-semibold text-center mb-2 opacity-50">Book a stall</button>
                   <p className="text-sm mb-2">Register your market in profile to book a stall.</p>
                 </>
               )}

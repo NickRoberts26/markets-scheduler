@@ -14,27 +14,24 @@ interface AuthGuardProps {
 const AuthGuard = ({ children }: AuthGuardProps) => {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [authChecked, setAuthChecked] = useState(false); // New flag to indicate auth is fully checked
   const pathname = usePathname();
 
   useEffect(() => {
-    // Wait until `loading` is false to ensure authentication status is confirmed
     if (!loading) {
-      setAuthChecked(true);
       if (!user && !['/login', '/signup'].includes(pathname)) {
         router.replace('/login');
       }
-    }
-  }, [user, loading, router]);
+    } else (
+      console.log('still loading...')
+    )
+  }, [user, loading, pathname, router]);
 
-  // Render a loading state until the authentication check is complete
-  if (!authChecked) {
+  if (loading) {
     return (
       <LoadingScreen />
     );
   }
 
-  // Once authentication check is done, allow rendering of the protected children
   return <>{children}</>;
 };
 

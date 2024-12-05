@@ -17,6 +17,7 @@ interface Market {
 const SingleRequest: React.FC<RequestFeedProps> = ( { date, status, userId, bookingId } ) => {
     const [marketInfo, setMarketInfo] = useState<Market>();
     const [bookingStatus, setBookingStatus] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     const updateStatus = async (newStatus: string) => {
         try {
@@ -65,17 +66,56 @@ const SingleRequest: React.FC<RequestFeedProps> = ( { date, status, userId, book
         fetchMarketInfo();
     }, []);
 
+    useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth < 1024);
+        };
+    
+        handleResize();
+    
+        window.addEventListener("resize", handleResize);
+    
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
-        <div className='flex items-center p-4'>
-            <p className='w-[25%]'>{marketInfo?.marketName}</p>
-            <p className='w-[20%]'>{marketInfo?.productType}</p>
-            <p className='w-[15%]'>{date}</p>
-            <p className='w-[15%]'>{status}</p>
-            <div className='flex ml-auto'>
-                <button onClick={() => updateStatus('Confirmed')} className='basic-button mr-2'>Approve</button>
-                <button onClick={() => updateStatus('Denied')} className='basic-button-deny'>Deny</button>
-            </div>
-        </div>
+        <>
+            {isMobile ? (
+                <div className='flex flex-col p-4'>
+                    <div className='flex'>
+                        <p className='font-bold mr-2'>Market Name:</p>
+                        <p>{marketInfo?.marketName}</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='font-bold mr-2'>Product:</p>
+                        <p>{marketInfo?.productType}</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='font-bold mr-2'>Reuqested Date:</p>
+                        <p>{date}</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='font-bold mr-2'>Status:</p>
+                        <p>{status}</p>
+                    </div>
+                    <div className='flex mt-2'>
+                        <button onClick={() => updateStatus('Confirmed')} className='basic-button mr-2'>Approve</button>
+                        <button onClick={() => updateStatus('Denied')} className='basic-button-deny'>Deny</button>
+                    </div>
+                </div>
+            ) : (
+                <div className='flex items-center p-4'>
+                    <p className='w-[25%]'>{marketInfo?.marketName}</p>
+                    <p className='w-[20%]'>{marketInfo?.productType}</p>
+                    <p className='w-[15%]'>{date}</p>
+                    <p className='w-[15%]'>{status}</p>
+                    <div className='flex ml-auto'>
+                        <button onClick={() => updateStatus('Confirmed')} className='basic-button mr-2'>Approve</button>
+                        <button onClick={() => updateStatus('Denied')} className='basic-button-deny'>Deny</button>
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
 

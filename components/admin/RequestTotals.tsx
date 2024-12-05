@@ -18,7 +18,7 @@ const RequestTotals: React.FC<ReuqestTotalsProps> = ( { stat, icon, iconwidth } 
                     height={30}
                     className='h-fit'
                 />
-                <div className='text-3xl font-bold mb-10 ml-2'>{stat}</div>
+                <div className='text-3xl font-bold mb-4 lg:mb-10 ml-2'>{stat}</div>
             </div>
             <div>Total number of accepted applications</div>
         </div>

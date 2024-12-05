@@ -9,7 +9,7 @@ import { handleLogout } from '@/utils/handleLogout';
 const Sidebar = () => {
     
     return (
-        <div className='w-full z-10 lg:w-[80px] fixed lg:relative bg-white border-b-2 lg:border-b-0 border-black lg:border-r-2 p-3 lg:px-2 lg:pt-8 flex lg:flex-col justify-between lg:justify-normal items-center'>
+        <div className='w-full z-10 lg:w-[80px] fixed top-0 lg:relative bg-white border-b-2 lg:border-b-0 border-black lg:border-r-2 p-3 lg:px-2 lg:pt-8 flex lg:flex-col justify-between lg:justify-normal items-center'>
             <Link href="/" className='lg:mb-6'>
                 <div className='flex'>
                     <Image

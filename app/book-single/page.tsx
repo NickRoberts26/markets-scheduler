@@ -6,7 +6,7 @@ import ShortTermForm from '@/components/forms/ShortTermForm';
 const BookSingle = () => {
     return (
         <div className='flex h-screen max-h-screen'>
-            <div className='flex flex-col relative justify-center w-[70%] mx-16 my-10'>
+            <div className='flex flex-col relative lg:justify-center w-full lg:w-[70%] m-6 lg:mx-16 lg:my-10'>
                 <ShortTermForm />
             </div>
             <Image
