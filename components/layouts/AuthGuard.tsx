@@ -19,9 +19,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
       if (!user && !['/login', '/signup'].includes(pathname)) {
         router.replace('/login');
       }
-    } else (
-      console.log('still loading...')
-    )
+    }
   }, [user, loading, pathname, router]);
 
   if (loading) {

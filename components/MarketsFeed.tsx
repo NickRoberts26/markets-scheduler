@@ -47,7 +47,6 @@ const MarketsFeed = () => {
     return (
         <div className='grid lg:grid-cols-3 lg:gap-x-5'>
             {marketplaces?.map((marketplace) => {
-                console.log(marketplace);
                 return (
                     <Link key={marketplace.uid} href={`/local-markets/${marketplace.marketplaceName.replace(/\s+/g, '-').toLowerCase()}`} className='relative h-[35vh] lg:h-[40vh] mb-5 transition-all duration-500 hover:scale-105'>
                         <div className='absolute bg-gray-600 opacity-50 top-0 left-0 h-full w-full rounded-3xl border-4 border-green-500'></div>

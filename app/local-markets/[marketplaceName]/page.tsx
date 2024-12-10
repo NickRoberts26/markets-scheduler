@@ -27,7 +27,7 @@ const MarketplacePage = () => {
     
     const getSegment = (url: string) => {
         const parts = url.split('/');
-        return parts[parts.length - 2]; // Gets the second-to-last segment
+        return parts[parts.length - 1]; // Gets the second-to-last segment
     };
 
     const formatKebabCaseToTitleCase = (str: string): string => {
@@ -39,7 +39,6 @@ const MarketplacePage = () => {
 
     useEffect(() => {
         const segment = formatKebabCaseToTitleCase(getSegment(window.location.href));
-
         const fetchMarketplace = async ()=> {
             try {
                 const q = query(
