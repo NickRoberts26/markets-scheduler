@@ -3,7 +3,7 @@
 Marketeer is a market scheduling platform designed to connect users with marketplace owners for seamless booking and management. Built with **Next.js** and **TypeScript**, styled using **Tailwind CSS** with **Google Firebase** as a database, Marketeer provides a user-friendly interface for registering and managing markets.
 
 ## Demo
-
+https://marketeer-market-scheduler.vercel.app
 
 ## Features
 
